@@ -1,5 +1,5 @@
-import wc from "./wc.js";
-import Validator from "./../helpers/validator.js";
+import wc from "/components/wc.js";
+import Validator from "/classes/validator.js";
 
 class wcSelect extends wc {
     constructor() {
@@ -13,8 +13,8 @@ class wcSelect extends wc {
     get wcTemplate() {
         return wc.html`
             <div>
-                <label for="${this.id || "select-0"}">${this.label || "no label"}</label>
-    
+                <label for="${this.id || " select-0"}">${this.label || "no label"}</label>
+            
                 <slot id="option-slot">
                     <option value="dog">Dog</option>
                     <option value="cat">Cat</option>
@@ -23,8 +23,8 @@ class wcSelect extends wc {
                     <option value="spider">Spider</option>
                     <option value="goldfish">Goldfish</option>
                 </slot>
-
-                <select name="pets" id="pet-select" class="input" placeholder="${this.getAttribute("placeholder")}">
+            
+                <select name="pets" id="pet-select" class="input" placeholder="${this.getAttribute(" placeholder")}">
                     <option value="">${this.placeholder || "select an option"}</option>
                 </select>
             </div>
@@ -36,17 +36,36 @@ class wcSelect extends wc {
             <style>
                 :host {
                     display: inline-flex;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
                 }
 
                 #option-slot {
                     display: none;
                 }
+
+                :host>div {
+                    display: inline-flex;
+                    flex-direction: column;
+                }
+
+                :host(:not([label])) label {
+                    display: none;
+                }
+
+                select {
+                    padding: 10px;
+                }
             </style>
         `;
     }
 
+    get wcBuiltIn() {
+        return this.shadowRoot.querySelector("select");
+    }
+
     get value() {
-        return this.getAttribute("value") || "";
+        return this.wcBuiltIn.value;
     }
 
     get label() {
@@ -68,6 +87,20 @@ class wcSelect extends wc {
     connectedCallback() {
         let mainSelect = this.shadowRoot.querySelector("select");
         mainSelect.append(...this.optionSlot.assignedElements());
+    }
+
+    static optionsFromData(data = []) {
+        let str = "";
+        let fn = obj => {
+            str = `${str}\n<option value="${obj.id}">${obj.name}</option>`;
+        };
+        data.forEach(fn);
+        return wc.html`
+            <wc-select
+                ${data.label ? 'label="${data.label}' : ""} 
+                ${data.placeholder ? 'placeholder="${data.placeholder}' : ""}>
+                    ${str}
+            </wc-select>`;
     }
 }
 

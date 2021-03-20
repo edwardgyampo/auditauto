@@ -4,8 +4,8 @@
   "main": "./app.js",
   "scripts": {
     "test": "nodemon ./app.js",
-    "dev-server": "nodemon ./app.js",
-    "dev-client": "browser-sync start --proxy \"localhost:8080\" --files \"www/**/*.*\""
+    "dev-server": "nodemon ./app.js --ext html,css,js",
+    "dev-client": "browser-sync start --proxy \"localhost:8080\" --files=**/* --ignore=node_modules --reload-delay 1500 --no-inject-changes"
   },
   "author": "Edward Gyampo",
   "license": "ISC",

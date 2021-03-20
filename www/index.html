@@ -6,30 +6,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="main.css">
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
-    <wc-input regExp="^.{6,}$" placeholder="full name"></wc-input><br>
+    <wc-text-input placeholder="Full Name">
+        <wc-reg-exp description="Invalid Full Name Format!"
+            value="^[A-Za-z]([-']?[A-Za-z]+)*( [A-Za-z]([-']?[A-Za-z]+)*)+$">
+        </wc-reg-exp>
+    </wc-text-input><br>
 
-    <wc-input placeholder="reference code"></wc-input><br>
+    <wc-text-input required placeholder="Reference Code">
+        <wc-reg-exp description="Should contain at least six characters!" value="^.{6,}">
+        </wc-reg-exp>
 
-    <wc-input placeholder="email address" type="email"></wc-input><br>
+        <wc-reg-exp description="Should contain at least one uppercase character!" value="[A-Z]{1,}">
+        </wc-reg-exp>
 
-    <wc-select label="Choose Automobile Manufacturer" placeholder="select from list">
-        <option value="0">Toyota Motor Corporation</option>
-        <option value="1">Volkswagen Group</option>
-        <option value="2">BMW</option>
-        <option value="3">Tesla Inc.</option>
-        <option value="4">Ford</option>
-        <option value="5">Nissan</option>
-    </wc-select>
+        <wc-reg-exp description="Should contain at least one lowercase character!" value="[a-z]{1,}">
+        </wc-reg-exp>
 
-    <wc-select id="model-select"></wc-select>
+        <wc-reg-exp description="Should contain numbers!" value="\d{1,}">
+        </wc-reg-exp>
 
-    <script type="module" src="components/wc-input.js"></script>
-    <script type="module" src="components/wc-select.js"></script>
+        <wc-reg-exp description="Should contain a special character!" value="[^\w\s]">
+        </wc-reg-exp>
+    </wc-text-input><br>
+
+    <wc-text-input placeholder="Email Address" type="email">
+        <wc-reg-exp description="Invalid Email Format!"
+            value="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$">
+        </wc-reg-exp>
+    </wc-text-input><br>
+
+    <div id="manufacturer-select"></div>
+
+    <wc-select label="Choose Model" id="model-select"></wc-select><br>
+
+    <script src="/helpers/post-data.js"></script>
+    <script type="module" src="/components/wc-reg-exp.js"></script>
+    <script type="module" src="/components/wc-text-input.js"></script>
+    <script type="module" src="/components/wc-select.js"></script>
+    <script type="module" src="/script.js"></script>
 </body>
 
 </html>

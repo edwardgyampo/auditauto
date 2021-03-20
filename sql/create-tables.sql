@@ -1,12 +1,12 @@
-CREATE TABLE automobile_manufacturers (
+CREATE TABLE manufacturers (
     id SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE automobile_models (
+CREATE TABLE models (
     id SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
-    manufacturer_id INT REFERENCES automobile_manufacturers(id)
+    manufacturer_id INT REFERENCES manufacturers(id)
 );
 
 CREATE TABLE sample_customers (
