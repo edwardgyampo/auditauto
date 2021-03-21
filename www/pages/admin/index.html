@@ -10,25 +10,39 @@
 </head>
 
 <body>
+    <a href="/index.html">Homepage</a>
+
     <p>Default Master Password: example123</p>
 
     <h1>Add An Automobile Manufacturer</h1>
 
-    <wc-text-input id="name-input" required placeholder="Name">
+    <wc-text-input label="Manufacturer" id="manufacturer-name-input" required placeholder="Name">
         <wc-reg-exp description="Invalid Name Format!" value="^[A-Za-z]([-']?[A-Za-z]+)*( [A-Za-z]([-']?[A-Za-z]+)*)?$">
         </wc-reg-exp>
     </wc-text-input><br>
 
-    <button id="add-button">Add</button>
+    <button id="add-manufacturer-button">Add Manufacturer</button>
+
+    <h1>Add An Automobile</h1>
+
+    <wc-text-input label="Automobile (Model)" id="automobile-name-input" required placeholder="Name">
+        <wc-reg-exp description="Invalid Name Format!" value="^[A-Za-z]([-']?[A-Za-z]+)*( [A-Za-z]([-']?[A-Za-z]+)*)?$">
+        </wc-reg-exp>
+    </wc-text-input><br>
+
+    <button id="add-automibile-button">Add Automobile</button>
     
     <h1>Remove Manufacturer</h1>
-    <div id="manufacturer-select-wrapper"></div>
-    <button id="remove-button">Remove</button>
+    <wc-select id="manufacturer-select">
+        <option>Select an option</option>
+    </wc-select>
+
+    <button id="remove-button">Remove Manufacturer</button>
 
     <script src="/helpers/post-data.js"></script>
     <script type="module" src="/components/wc-reg-exp.js"></script>
     <script type="module" src="/components/wc-text-input.js"></script>
-    <script type="module" src="/pages/admin/index.js"></script>
+    <script type="module" src="/pages/admin/script.js"></script>
 </body>
 
 </html>

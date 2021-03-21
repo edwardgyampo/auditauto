@@ -23,46 +23,7 @@ class wcTextInput extends wc {
     get wcStyle() {
         return wc.html`
             <style>
-                :host {
-                    position: relative;
-                    display: inline-flex;
-                    width: 215px;
-                    height: 45px;
-                }
-                
-                :host>div {
-                    display: inline-flex;
-                    flex-direction: column;
-                    margin-bottom: 10px;
-                    width: 100%;
-                    height: 100%;
-                }
 
-                input {
-                    display: inline-flex;
-                    width: 215px;
-                    height: 50px;
-                    border: 2px solid rgba(0, 0, 0, .1);
-                }
-                
-                :host([is-invalid]) input {
-                    border-color: red;
-                }
-
-                :host(:not([label])) label {
-                    display: none;
-                }
-
-                .alert {
-                    display: inline-flex;
-                    padding: 10px;
-                    color: red;
-                }
-
-                :host(:not([is-invalid])) .alert {
-                    display: none;
-                    overflow: hidden;
-                }
             </style>
         `;
     }

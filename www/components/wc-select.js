@@ -15,17 +15,9 @@ class wcSelect extends wc {
             <div>
                 <label for="${this.id || " select-0"}">${this.label || "no label"}</label>
             
-                <slot id="option-slot">
-                    <option value="dog">Dog</option>
-                    <option value="cat">Cat</option>
-                    <option value="hamster">Hamster</option>
-                    <option value="parrot">Parrot</option>
-                    <option value="spider">Spider</option>
-                    <option value="goldfish">Goldfish</option>
-                </slot>
+                <slot id="option-slot" style="display: none"></slot>
             
                 <select name="pets" id="pet-select" class="input" placeholder="${this.getAttribute(" placeholder")}">
-                    <option value="">${this.placeholder || "select an option"}</option>
                 </select>
             </div>
         `;
@@ -34,28 +26,7 @@ class wcSelect extends wc {
     get wcStyle() {
         return wc.html`
             <style>
-                :host {
-                    display: inline-flex;
-                    padding-top: 10px;
-                    padding-bottom: 10px;
-                }
-
-                #option-slot {
-                    display: none;
-                }
-
-                :host>div {
-                    display: inline-flex;
-                    flex-direction: column;
-                }
-
-                :host(:not([label])) label {
-                    display: none;
-                }
-
-                select {
-                    padding: 10px;
-                }
+                
             </style>
         `;
     }
@@ -85,22 +56,23 @@ class wcSelect extends wc {
     }
 
     connectedCallback() {
-        let mainSelect = this.shadowRoot.querySelector("select");
-        mainSelect.append(...this.optionSlot.assignedElements());
+        this.update();
     }
 
     static optionsFromData(data = []) {
-        let str = "";
-        let fn = obj => {
-            str = `${str}\n<option value="${obj.id}">${obj.name}</option>`;
-        };
-        data.forEach(fn);
-        return wc.html`
-            <wc-select
-                ${data.label ? 'label="${data.label}' : ""} 
-                ${data.placeholder ? 'placeholder="${data.placeholder}' : ""}>
-                    ${str}
-            </wc-select>`;
+        return data.map(obj => wc.html`<option value="${obj.id}">${obj.name}</option>`);
+    }
+
+    update() {
+        this.wcBuiltIn.innerHTML = "";
+        let clones = this.optionSlot.assignedElements().map(e => e.cloneNode(true));
+        this.wcBuiltIn.append(...clones);
+    }
+    
+    repopulate(data = []) {
+        this.wcBuiltIn.innerHTML = "";
+        let clones = this.optionSlot.assignedElements().map(e => e.cloneNode(true));
+        this.wcBuiltIn.append(...clones, ...wcSelect.optionsFromData(data));
     }
 }
 

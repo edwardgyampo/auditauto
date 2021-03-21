@@ -11,25 +11,15 @@ class wc extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.shadowRoot.append(wc.html`
-          <style>
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-            }
-
-            input:focus, textarea:focus, select:focus
-            textarea {
-                outline: none;
-                box-shadow: none;
-                -webkit-box-shadow: none;
-                -moz-box-shadow: none;
-                -webkit-appearance: none;
-                outline: none;
-                background: none;
-            }
-          </style>
-          `);
+        <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        </style>
+        `);
+        
         this.shadowRoot.append(this.wcStyle);
         this.shadowRoot.append(this.wcTemplate);
     }
@@ -42,7 +32,6 @@ class wc extends HTMLElement {
         return html` <style></style> `;
     }
 
-    // Returns the built-in html element that this custom-element wraps.
     get wcBuiltIn() {
         return null;
     }

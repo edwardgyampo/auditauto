@@ -4,7 +4,8 @@ const path = require("path");
 const app = express();
 const pg = require("pg");
 
-// DEBUGGING PURPOSE: Resets database to new and empty on app launch.
+// DEBUGGING PURPOSE: Toggles resetting database to new and empty on app launch
+// and then populates it with sample data stored in .sql files.
 const isResetDB = false;
 
 // All options specific to app are set here.
@@ -61,7 +62,7 @@ else {
 
         // All router urls are added inside the url array
         // Routers are contained in "router/" (top-level, no nesting)
-        let urls = ["manufacturers"];
+        let urls = ["manufacturers", "automobiles"];
         urls.forEach(router => {
             let file = path.join(app.get("rootDir"), "router", `${router}.js`);
             let fn = require(file);
@@ -91,7 +92,7 @@ async function createDatabase(database) {
 
 async function createTables() {
     let fs = require("fs").promises;
-    let sql = String(await fs.readFile(path.join(app.get("rootDir"), "sql", "create-tables.sql")));
+    let sql = String(await fs.readFile(path.join(app.get("rootDir"), "sql", "create_tables.sql")));
     try {
         let result = await app.get("dbConn").query(sql);
         console.log("Tables created for app first-launch!");
@@ -104,13 +105,31 @@ async function createTables() {
 
 async function insertRows() {
     let fs = require("fs").promises;
-    let sql = String(await fs.readFile(path.join(app.get("rootDir"), "sql", "insert-rows.sql")));
-    try {
-        let result = await app.get("dbConn").query(sql);
-        console.log("Row samples inserted into tables for app test-launch!");
-        return result;
-    }
-    catch (error) {
-        console.log(error);
-    }
+    let sqls = [
+        String(await fs.readFile(path.join(app.get("rootDir"), "sql", "insert_manufacturers.sql"))),
+        String(await fs.readFile(path.join(app.get("rootDir"), "sql", "insert_automobiles.sql")))
+    ];
+
+    let fn = (sql) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let result = await app.get("dbConn").query(sql);
+                console.log("Row samples inserted into table for app test-launch!");
+                resolve(result);
+            }
+            catch (error) {
+                reject(error);
+            }
+        });
+    };
+
+    // Run the different sql queries as tasks in series
+    let completeTasks = null;
+    sqls.forEach((sql) => {
+        if (completeTasks) {
+            completeTasks.then(fn(sql));
+            return;
+        }
+        completeTasks = fn(sql);
+    });
 }

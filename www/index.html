@@ -10,7 +10,10 @@
 </head>
 
 <body>
-    <wc-text-input placeholder="Full Name">
+    <a href="/pages/admin/index.html">Admin Panel</a>
+    <a href="/pages/info/index.html">Info</a>
+    
+    <wc-text-input required placeholder="Full Name">
         <wc-reg-exp description="Invalid Full Name Format!"
             value="^[A-Za-z]([-']?[A-Za-z]+)*( [A-Za-z]([-']?[A-Za-z]+)*)+$">
         </wc-reg-exp>
@@ -39,14 +42,52 @@
         </wc-reg-exp>
     </wc-text-input><br>
 
-    <div id="manufacturer-select"></div>
+    <wc-select id="manufacturer-select">
+        <option>Choose an option</option>
+    </wc-select>
+    
+    <wc-select label="Choose Automobile" id="automobile-select">
+        <option>Choose an option</option>
+    </wc-select><br>
 
-    <wc-select label="Choose Model" id="model-select"></wc-select><br>
+    <ul>
+        <li>
+            <label for="engine-issue">Engine issue</label>
+            <input id="engine-issue" type="checkbox">
+        </li>
+        <li>
+            <label for="gearbox-issue">Gearbox issue</label>
+            <input id="gearbox-issue" type="checkbox">
+        </li>
+        <li>
+            <label for="need-body-repair">Need body repair</label>
+            <input id="need-body-repair" type="checkbox">
+        </li>
+        <li>
+            <label for="need-painting">Need repainting</label>
+            <input id="need-painting" type="checkbox">
+        </li>
+        <li>
+            <label for="wiring-problem">Wiring problems</label>
+            <input id="wiring-problem" type="checkbox">
+        </li>
+        <li>
+            <label for="oil-leakage">Oil leakage</label>
+            <input id="oil-leakage" type="checkbox">
+        </li>
+        <li>
+            <label for="brake-issue">Brake issue</label>
+            <input id="brake-issue" type="checkbox">
+        </li>
+    </ul>
+
+    <wc-button label="Next"></wc-button>
 
     <script src="/helpers/post-data.js"></script>
     <script type="module" src="/components/wc-reg-exp.js"></script>
     <script type="module" src="/components/wc-text-input.js"></script>
     <script type="module" src="/components/wc-select.js"></script>
+    <script type="module" src="/components/wc-button.js"></script>
     <script type="module" src="/script.js"></script>
 </body>
 
