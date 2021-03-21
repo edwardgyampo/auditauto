@@ -13,81 +13,74 @@
     <a href="/pages/admin/index.html">Admin Panel</a>
     <a href="/pages/info/index.html">Info</a>
     
-    <wc-text-input required placeholder="Full Name">
-        <wc-reg-exp description="Invalid Full Name Format!"
-            value="^[A-Za-z]([-']?[A-Za-z]+)*( [A-Za-z]([-']?[A-Za-z]+)*)+$">
-        </wc-reg-exp>
-    </wc-text-input><br>
+    <div class="text-inputs">
+        <wc-text-input required placeholder="Full Name">
+            <wc-reg-exp description="Invalid Full Name Format!"
+                value="^[A-Za-z]([-']?[A-Za-z]+)*( [A-Za-z]([-']?[A-Za-z]+)*)+$">
+            </wc-reg-exp>
+        </wc-text-input><br>
 
-    <wc-text-input required placeholder="Reference Code">
-        <wc-reg-exp description="Should contain at least six characters!" value="^.{6,}">
-        </wc-reg-exp>
-
-        <wc-reg-exp description="Should contain at least one uppercase character!" value="[A-Z]{1,}">
-        </wc-reg-exp>
-
-        <wc-reg-exp description="Should contain at least one lowercase character!" value="[a-z]{1,}">
-        </wc-reg-exp>
-
-        <wc-reg-exp description="Should contain numbers!" value="\d{1,}">
-        </wc-reg-exp>
-
-        <wc-reg-exp description="Should contain a special character!" value="[^\w\s]">
-        </wc-reg-exp>
-    </wc-text-input><br>
-
-    <wc-text-input placeholder="Email Address" type="email">
-        <wc-reg-exp description="Invalid Email Format!"
-            value="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$">
-        </wc-reg-exp>
-    </wc-text-input><br>
-
-    <wc-select id="manufacturer-select">
-        <option>Choose an option</option>
-    </wc-select>
+        <wc-text-input required placeholder="Reference Code">
+            <wc-reg-exp description="Should contain at least six characters!" value="^.{6,}">
+            </wc-reg-exp>
+            
+            <wc-reg-exp description="Should contain at least one uppercase character!" value="[A-Z]{1,}">
+            </wc-reg-exp>
     
-    <wc-select label="Choose Automobile" id="automobile-select">
-        <option>Choose an option</option>
-    </wc-select><br>
+            <wc-reg-exp description="Should contain at least one lowercase character!" value="[a-z]{1,}">
+            </wc-reg-exp>
+    
+            <wc-reg-exp description="Should contain numbers!" value="\d{1,}">
+            </wc-reg-exp>
+    
+            <wc-reg-exp description="Should contain a special character!" value="[^\w\s]">
+            </wc-reg-exp>
+        </wc-text-input><br>
 
-    <ul>
-        <li>
-            <label for="engine-issue">Engine issue</label>
-            <input id="engine-issue" type="checkbox">
-        </li>
-        <li>
-            <label for="gearbox-issue">Gearbox issue</label>
-            <input id="gearbox-issue" type="checkbox">
-        </li>
-        <li>
-            <label for="need-body-repair">Need body repair</label>
-            <input id="need-body-repair" type="checkbox">
-        </li>
-        <li>
-            <label for="need-painting">Need repainting</label>
-            <input id="need-painting" type="checkbox">
-        </li>
-        <li>
-            <label for="wiring-problem">Wiring problems</label>
-            <input id="wiring-problem" type="checkbox">
-        </li>
-        <li>
-            <label for="oil-leakage">Oil leakage</label>
-            <input id="oil-leakage" type="checkbox">
-        </li>
-        <li>
-            <label for="brake-issue">Brake issue</label>
-            <input id="brake-issue" type="checkbox">
-        </li>
-    </ul>
+        <wc-text-input required placeholder="Email Address" type="email">
+            <wc-reg-exp description="Invalid Email Format!"
+                value="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$">
+            </wc-reg-exp>
+        </wc-text-input><br>
+    </div>
 
-    <wc-button label="Next"></wc-button>
+    <div>
+        <wc-select id="manufacturer-select">
+            <option value="">Choose an option</option>
+        </wc-select>
+        
+        <wc-select label="Choose Automobile" id="automobile-select">
+            <option value="">Choose an option</option>
+        </wc-select><br>
 
+        <p id="automobile-selection-alert" class="hidden">Please select an Automobile!</p>
+    </div>
+    
+    <div>
+        <wc-checkbox class="automobile-condition" label="Engine issue"></wc-checkbox>
+        <wc-checkbox class="automobile-condition" label="Gearbox issue"></wc-checkbox>
+        <wc-checkbox class="automobile-condition" label="need-body-repair"></wc-checkbox>
+        <wc-checkbox class="automobile-condition" label="Need repainting"></wc-checkbox>
+        <wc-checkbox class="automobile-condition" label="Wiring problems"></wc-checkbox>
+        <wc-checkbox class="automobile-condition" label="Oil leakage"></wc-checkbox>
+        <p id="condition-selection-alert" class="hidden">Please select at least one condition.</p>
+    </div>
+    
+    <p id="text-inputs-alert" class="hidden">Invalid inputs!</p>
+    
+    <wc-button id="next-button" label="Next"></wc-button>
+    
+    <div id="cookies-agreement-dialog" class="hidden agreement-dialog">
+        <wc-button id="accept-button" label="I accept"></wc-button>
+        <wc-button id="deny-button" label="Don't show again"></wc-button>
+    </div>
+    
     <script src="/helpers/post-data.js"></script>
     <script type="module" src="/components/wc-reg-exp.js"></script>
     <script type="module" src="/components/wc-text-input.js"></script>
     <script type="module" src="/components/wc-select.js"></script>
     <script type="module" src="/components/wc-button.js"></script>
+    <script type="module" src="/components/wc-checkbox.js"></script>
     <script type="module" src="/script.js"></script>
 </body>
 

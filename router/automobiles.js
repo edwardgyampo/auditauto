@@ -3,7 +3,7 @@ let router = require("express").Router();
 router.post("/read/for-manufacturer", async (req, res) => {
     let sql = `
         SELECT
-            automobiles.name
+            automobiles.name, automobiles.id
         FROM
             automobiles
         JOIN

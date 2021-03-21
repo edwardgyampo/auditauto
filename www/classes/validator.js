@@ -22,7 +22,7 @@ class Validator {
     }
 
     // Test if all regular expressions were matched.
-    async validate() {
+    validate() {
         this.resetHistory();
 
         if (this.isValueRequired && !this.obj.value) {

@@ -12,8 +12,8 @@ class wcTextInput extends wc {
             <div>
                 <label for="${this.id || " input-0"}">${this.label || "no label"}</label>
             
-                <input ${this.hasAttribute('required') ? 'required' : ''} class="input" type="text"
-                    placeholder="${this.getAttribute('placeholder')}" />
+                <input autocomplete="${this.isAutocomplete ? 'on' : 'off'}" ${this.hasAttribute('required') ? 'required' : '' }
+                    class="input" type="text" placeholder="${this.placeholder}" />
             
                 <p class="alert"></p>
             </div>
@@ -53,16 +53,31 @@ class wcTextInput extends wc {
         return this.getAttribute("type") || "text";
     }
 
+    get placeholder() {
+        return this.getAttribute('placeholder');
+    }
+
+    get isValid() {
+        // console.log(this.placeholder, "is", this.validator.validate());
+        return this.validator.validate();
+    }
+
+    get isAutocomplete() {
+        return this.hasAttribute("autocomplete");
+    }
+
     updateAlert() {
         this.alert.textContent = this.validator.notification;
     }
 
+    validate() {
+        let isValid = this.validator.validate();
+        this.toggleAttribute("is-invalid", !isValid);
+        this.updateAlert();
+    }
+
     connectedCallback() {
-        this.wcBuiltIn.addEventListener("blur", async () => {
-            let isValid = await this.validator.validate();
-            this.toggleAttribute("is-invalid", !isValid);
-            this.updateAlert();
-        });
+        this.wcBuiltIn.addEventListener("blur", () => this.validate());
     }
 }
 
