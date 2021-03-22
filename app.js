@@ -1,4 +1,4 @@
-const dotenv = require('dotenv').config()
+const dotenv = require('dotenv').config();
 const favicon = require('serve-favicon');
 const express = require("express");
 const path = require("path");
@@ -10,7 +10,7 @@ if (dotenv.error) throw dotenv.error;
 // All options specific to app are set here.
 app.set("isRecreateDB", false);
 app.set("isRecreateTables", true);
-app.set("port", 8080);
+app.set("port", process.env.PORT || 8080);
 app.set("rootDir", __dirname);
 app.set("dbConfig", {
     user: process.env.DB_USER,
