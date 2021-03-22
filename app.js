@@ -96,6 +96,7 @@ else {
 })();
 
 async function localDatabaseExists() {
+    if (process.env.APP_MODE == "production") return false;
     let conn = new pg.Pool(app.get("dbConfig"));
     let sql = "SELECT * FROM pg_database WHERE datname = $1;";
     let values = [app.get("dbConfig").database];
