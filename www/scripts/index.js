@@ -1,4 +1,4 @@
-import CookieAgreement from "/classes/CookieAgreement.js";
+import CookieAgreement from "/classes/cookieAgreement.js";
 
 class App {
     static get userData() {
