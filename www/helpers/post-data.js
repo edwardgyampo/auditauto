@@ -1,3 +1,5 @@
+// Wrapper function which implements fetch options such that only
+// request url and data are required to make a post request.
 async function postData(url = '', data = {}) {
     const response = await fetch(url, {
         method: 'POST',

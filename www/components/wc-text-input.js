@@ -12,7 +12,7 @@ class wcTextInput extends wc {
             <div>
                 <label for="${this.id || " input-0"}">${this.label || "no label"}</label>
             
-                <input autocomplete="${this.isAutocomplete ? 'on' : 'off'}" ${this.hasAttribute('required') ? 'required' : '' }
+                <input name="${this.name}" autocomplete="${this.isAutocomplete ? 'on' : 'off'}" ${this.hasAttribute('required') ? 'required' : '' }
                     class="input" type="text" placeholder="${this.placeholder}" />
             
                 <p class="alert"></p>
@@ -39,6 +39,14 @@ class wcTextInput extends wc {
 
     get value() {
         return this.wcBuiltIn.value;
+    }
+
+    set value(val) {
+        this.wcBuiltIn.value = val;
+    }
+
+    get name() {
+        return this.getAttribute("name") || "";
     }
 
     get label() {

@@ -1,38 +1,35 @@
-import wcSelect from "/components/wc-select.js";
+updateManufaturerSelect();
 
 // Adding a manufacturer.
 (async function () {
-    let btn = document.getElementById("add-manufacturer-button");
+    let btn = document.querySelector("wc-button.add-manufacturer");
+    let input = document.querySelector("wc-input.manufacturer-name");
 
     btn.addEventListener("click", async () => {
         let url = "/manufacturers/create";
         let manufacturers = await postData(url, {
-            name: document.getElementById("manufacturer-name-input").value,
+            name: input.value,
         });
         console.log(manufacturers);
         updateManufaturerSelect();
     });
 })();
 
-// Fetching manufacturers for selection.
-updateManufaturerSelect();
-
 // Removing a manufacturer.
 (async function () {
-    let btn = document.getElementById("remove-button");
+    let btn = document.querySelector("wc-button.remove-manufacturer");
 
     btn.addEventListener("click", async () => {
         let url = "/manufacturers/delete";
         let result = await postData(url, {
-            id: document.querySelector("#manufacturer-select").value,
+            id: document.querySelector("wc-select.manufacturer").value,
         });
-        console.log(result);
         updateManufaturerSelect();
     });
 })();
 
 async function updateManufaturerSelect() {
     let manufacturers = await postData("/manufacturers/read");
-    let select = document.getElementById("manufacturer-select");
+    let select = document.querySelector("wc-select.manufacturer");
     select.repopulate(manufacturers);
 }

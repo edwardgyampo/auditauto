@@ -12,7 +12,7 @@ class wcCheckbox extends wc {
             <div>
                 <label for="input-0">${this.label || "no label"}</label>
 
-                <input id="${this.id || 'input-0'}" ${this.isRequired ? "required" : ""} type="checkbox"></div>
+                <input name="${this.name}" id="${this.id || 'input-0'}" ${this.isRequired ? "required" : ""} type="checkbox"></div>
             </div>
         `;
     }
@@ -43,8 +43,24 @@ class wcCheckbox extends wc {
         return this.shadowRoot.querySelector("input");
     }
 
+    get checked() {
+        return this.wcBuiltIn.checked;
+    }
+
+    set checked(bool) {
+        return this.wcBuiltIn.checked = bool;
+    }
+
     get value() {
         return this.wcBuiltIn.checked;
+    }
+
+    set value(val) {
+        this.wcBuiltIn.value = val;
+    }
+
+    get name() {
+        return this.getAttribute("name") || "";
     }
 
     get label() {

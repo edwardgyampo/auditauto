@@ -17,7 +17,7 @@ class wcSelect extends wc {
             
                 <slot id="option-slot" style="display: none"></slot>
             
-                <select name="pets" id="pet-select" class="input" placeholder="${this.getAttribute(" placeholder")}">
+                <select name="${this.name}" id="pet-select" class="input" placeholder="${this.getAttribute(" placeholder")}">
                 </select>
             </div>
         `;
@@ -39,8 +39,16 @@ class wcSelect extends wc {
         return this.wcBuiltIn.value;
     }
 
+    set value(val) {
+        this.wcBuiltIn.value = val;
+    }
+
     get label() {
         return this.getAttribute("label") || "";
+    }
+
+    get name() {
+        return this.getAttribute("name") || "";
     }
 
     get placeholder() {
@@ -56,14 +64,14 @@ class wcSelect extends wc {
     }
 
     connectedCallback() {
-        this.update();
+        this.reset();
     }
 
     static optionsFromData(data = []) {
         return data.map(obj => wc.html`<option value="${obj.id}">${obj.name}</option>`);
     }
 
-    update() {
+    reset() {
         this.wcBuiltIn.innerHTML = "";
         let clones = this.optionSlot.assignedElements().map(e => e.cloneNode(true));
         this.wcBuiltIn.append(...clones);
