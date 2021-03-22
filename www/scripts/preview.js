@@ -12,6 +12,7 @@ class Preview {
         };
 
         console.log(finalData);
+        Preview.info.append(JSON.stringify(finalData));
     }
 
     static get name() {
@@ -40,6 +41,10 @@ class Preview {
 
     static get conditions() {
         return Object.keys(this.userData.checkboxes).join(", ");
+    }
+
+    static get info() {
+        return document.querySelector(".info");
     }
 }
 
