@@ -72,4 +72,4 @@ VALUES
     ('Sportage', 10),
     ('Seltos', 10),
     ('Telluride', 10),
-    ('Carnival MPA', 10);
+    ('Carnival MPV', 10);
