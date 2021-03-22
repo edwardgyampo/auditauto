@@ -1,3 +1,5 @@
+DELETE FROM manufacturers;
+
 INSERT INTO
     manufacturers
 ("name")

@@ -1,55 +1,69 @@
+const dotenv = require('dotenv').config()
 const favicon = require('serve-favicon');
 const express = require("express");
 const path = require("path");
 const app = express();
 const pg = require("pg");
 
-// DEBUGGING PURPOSE: Toggles resetting database to new and empty on app launch
-// and then populates it with sample data stored in .sql files.
-const isResetDB = false;
+if (dotenv.error) throw dotenv.error;
 
 // All options specific to app are set here.
+app.set("isRecreateDB", false);
+app.set("isRecreateTables", true);
 app.set("port", 8080);
 app.set("rootDir", __dirname);
 app.set("dbConfig", {
-    user: "postgres",
-    password: "postgres",
-    host: "localhost",
-    port: 5432,
-    database: "autoaudit"
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME
 });
 
 // Make the pre-included postgres database active for performing before-launch operations.
 // Allows dynamic creation of app database and all tables.
-if (isResetDB) {
+if (process.env.MODE == "development" && app.get("isRecreateDB")) {
     let initialConfig = Object.assign({}, app.get("dbConfig"), { database: "postgres" });
     app.set("dbConn", new pg.Pool(initialConfig));
 }
-else {
+else if (process.env.MODE == "development") {
     app.set("dbConn", new pg.Pool(app.get("dbConfig")));
+}
+else {
+    app.set("dbConn", new pg.Client(process.env.DB_URL));
 }
 
 (async () => {
-    if (isResetDB && await databaseExists()) {
-        console.log("present sir!");
-        await app.get("dbConn").query(`DROP DATABASE ${app.get("dbConfig").database} WITH (FORCE);`);
+    if (app.get("isRecreateDB") && await localDatabaseExists() && process.env.MODE == "development") {
+        let name = app.get("dbConfig").database;
+        let sql = `DROP DATABASE ${name} WITH (FORCE);`;
+        await app.get("dbConn").query(sql);
     }
 
     try {
         await app.get("dbConn").connect();
         console.log(`Database client connected!`);
-        
-        if (await databaseExists(app.get("dbConfig").database)) {
 
-        }
-        else {
+        let recreateDBTests = [
+            app.get("isRecreateDB"),
+            process.env.MODE == "development",
+            !await localDatabaseExists()
+        ];
+
+        if (!recreateDBTests.includes(false)) {
             let config = app.get("dbConfig");
             let { database } = config;
-            await createDatabase(database);
+            await recreateDatabase(database);
             app.set("dbConn", new pg.Pool(config));
-            await createTables();
-            await insertRows();
         }
+
+        let isRecreateTables = isReinsertRows =
+            (await localDatabaseExists() || process.env.MODE == "development")
+            &&
+            app.get("isRecreateTables");
+
+        isRecreateTables && await recreateTables();
+        isReinsertRows && await reinsertRows();
 
         app.use(express.json());
         app.use(favicon(path.join(app.get("rootDir"), 'favicon.ico')));
@@ -79,35 +93,39 @@ else {
     }
 })();
 
-async function databaseExists() {
-    let result = await app.get("dbConn").query("SELECT * FROM pg_database WHERE datname = $1", [app.get("dbConfig").database]);
-    return result.rows.length != 0;
+async function localDatabaseExists() {
+    let conn = new pg.Pool(app.get("dbConfig"));
+    let sql = "SELECT * FROM pg_database WHERE datname = $1;";
+    let values = [app.get("dbConfig").database];
+    let result = await conn.query(sql, values);
+    let length = result.rows.length;
+    return length != 0;
 }
 
-async function createDatabase(database) {
-    let result = await app.get("dbConn").query("CREATE DATABASE " + database);
-    console.log(`New database (${database}) created for app first-launch!`);
+async function recreateDatabase(database) {
+    let conn = await app.get("dbConn");
+    let result = conn.query("CREATE DATABASE " + database);
+    console.log(`Database (${database}) created for first-launch!`);
     return result;
 }
 
-async function createTables() {
+async function recreateTables() {
     let fs = require("fs").promises;
-    let sql = String(await fs.readFile(path.join(app.get("rootDir"), "sql", "create_tables.sql")));
+    let file = path.join(app.get("rootDir"), "sql", "recreate_tables.sql");
+    let sql = String(await fs.readFile(file));
     try {
         let result = await app.get("dbConn").query(sql);
         console.log("Tables created for app first-launch!");
         return result;
     }
-    catch (error) {
-        console.log(error);
-    }
+    catch (error) { console.log(error); }
 }
 
-async function insertRows() {
+async function reinsertRows() {
     let fs = require("fs").promises;
     let sqls = [
-        String(await fs.readFile(path.join(app.get("rootDir"), "sql", "insert_manufacturers.sql"))),
-        String(await fs.readFile(path.join(app.get("rootDir"), "sql", "insert_automobiles.sql")))
+        String(await fs.readFile(path.join(app.get("rootDir"), "sql", "reinsert_manufacturers.sql"))),
+        String(await fs.readFile(path.join(app.get("rootDir"), "sql", "reinsert_automobiles.sql")))
     ];
 
     let fn = (sql) => {

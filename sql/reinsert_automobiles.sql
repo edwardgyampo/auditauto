@@ -1,3 +1,5 @@
+DELETE FROM automobiles;
+
 INSERT INTO
     automobiles
 ("name", manufacturer_id)
@@ -70,4 +72,4 @@ VALUES
     ('Sportage', 10),
     ('Seltos', 10),
     ('Telluride', 10),
-    ('Carnival MPV', 10);
+    ('Carnival MPA', 10);
