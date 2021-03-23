@@ -45,7 +45,7 @@ class wcTextInput extends wc {
                     font-size: 14px;
                     top: 3px;
                     left: 5px;
-                    color: purple;
+                    color: rgb(var(--color-primary-variant));
                 }
 
                 .core input {
@@ -75,7 +75,7 @@ class wcTextInput extends wc {
                     height: 64px;
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
                     overflow: hidden;
-                    border-bottom: 3px solid purple;
+                    border-bottom: 3px solid rgb(var(--color-primary-variant));
                     border-radius: 5px 5px 0 0;
                 }
             </style>
@@ -120,7 +120,6 @@ class wcTextInput extends wc {
     }
 
     get isValid() {
-        // console.log(this.placeholder, "is", this.validator.validate());
         return this.validator.validate();
     }
 
@@ -137,9 +136,10 @@ class wcTextInput extends wc {
     }
 
     validate() {
-        let isValid = this.validator.validate();
-        this.toggleAttribute("is-invalid", !isValid);
+        let bool = this.validator.validate();
+        this.toggleAttribute("is-invalid", !bool);
         this.updateAlert();
+        return bool;
     }
 
     connectedCallback() {

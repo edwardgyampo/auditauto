@@ -1,3 +1,24 @@
+:root {
+    /* Light Theme */
+    --color-primary: 98, 0, 238;
+    --color-primary-variant: 55, 0, 179;
+    --color-secondary: 3, 218, 198;
+    --color-secondary-variant: 1, 135, 134;
+    --color-background: 255, 255, 255;
+    --color-surface: 255, 255, 255;
+    --color-error: 176, 0, 32;
+    --color-on-primary: 255, 255, 255;
+    --color-on-secondary: 0, 0, 0;
+    --color-on-background: 0, 0, 0;
+    --color-on-surface: 0, 0, 0;
+    --color-on-error: 255, 255, 255;
+    
+    /* Dark theme */
+    /* --color-background:  30, 30, 30;
+    --color-on-background: 255, 255, 255; */
+}
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -11,6 +32,9 @@
 body {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 320px;
 }
 
 .cookies-agreement {
@@ -22,11 +46,14 @@ body {
     background-color: antiquewhite;
 }
 
-.text-inputs {
-    display: inline-flex;
-    flex-direction: column;
+wc-text-input, wc-select {
+    margin-bottom: 32px;
 }
 
-.text-inputs *:not(:last-child) {
-    margin-bottom: 10px;
+wc-checkbox {
+    margin-bottom: 14px;
+}
+
+wc-button {
+    margin-top: 24px;
 }

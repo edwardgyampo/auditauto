@@ -13,42 +13,40 @@
     <a href="/pages/admin.html">Admin Panel</a>
     <a href="/pages/preview.html">Info</a>
 
-    <div class="text-inputs">
-        <wc-text-input name="fullName" label="Full Name*" required placeholder="Full Name">
-            <wc-reg-exp description="Invalid Full Name Format!"
-                value="^[A-Za-z]([-']?[A-Za-z]+)*( [A-Za-z]([-']?[A-Za-z]+)*)+$">
-            </wc-reg-exp>
-        </wc-text-input>
+    <wc-text-input name="fullName" label="Full Name*" required placeholder="Full Name">
+        <wc-reg-exp description="Invalid Full Name Format!"
+            value="^[A-Za-z]([-']?[A-Za-z]+)*( [A-Za-z]([-']?[A-Za-z]+)*)+$">
+        </wc-reg-exp>
+    </wc-text-input>
 
-        <wc-text-input name="referenceCode" label="Reference Code*" required placeholder="Reference Code">
-            <wc-reg-exp description="Should contain at least six characters!" value="^.{6,}">
-            </wc-reg-exp>
+    <wc-text-input name="referenceCode" label="Reference Code*" required placeholder="Reference Code">
+        <wc-reg-exp description="Should contain at least six characters!" value="^.{6,}">
+        </wc-reg-exp>
 
-            <wc-reg-exp description="Should contain at least one uppercase character!" value="[A-Z]{1,}">
-            </wc-reg-exp>
+        <wc-reg-exp description="Should contain at least one uppercase character!" value="[A-Z]{1,}">
+        </wc-reg-exp>
 
-            <wc-reg-exp description="Should contain at least one lowercase character!" value="[a-z]{1,}">
-            </wc-reg-exp>
+        <wc-reg-exp description="Should contain at least one lowercase character!" value="[a-z]{1,}">
+        </wc-reg-exp>
 
-            <wc-reg-exp description="Should contain numbers!" value="\d{1,}">
-            </wc-reg-exp>
+        <wc-reg-exp description="Should contain numbers!" value="\d{1,}">
+        </wc-reg-exp>
 
-            <wc-reg-exp description="Should contain a special character!" value="[^\w\s]">
-            </wc-reg-exp>
-        </wc-text-input>
+        <wc-reg-exp description="Should contain a special character!" value="[^\w\s]">
+        </wc-reg-exp>
+    </wc-text-input>
 
-        <wc-text-input required name="emailAddress" label="Email Address*" placeholder="Email Address" type="email">
-            <wc-reg-exp description="Invalid Email Format!"
-                value="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$">
-            </wc-reg-exp>
-        </wc-text-input>
-    </div>
+    <wc-text-input required name="emailAddress" label="Email Address*" placeholder="Email Address" type="email">
+        <wc-reg-exp description="Invalid Email Format!"
+            value="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$">
+        </wc-reg-exp>
+    </wc-text-input>
 
-    <wc-select name="manufacturer" label="Choose Manufacturer*" class="manufacturer">
+    <wc-select required name="manufacturer" label="Choose Manufacturer*" class="manufacturer">
         <option value="">Choose an option</option>
     </wc-select>
 
-    <wc-select name="automobile" label="Choose Automobile*" class="automobile">
+    <wc-select required name="automobile" label="Choose Automobile*" class="automobile">
         <option value="">Choose an option</option>
     </wc-select>
 
@@ -56,19 +54,17 @@
         Please select an Automobile!
     </p>
 
-    <div>
-        <wc-checkbox name="engineIssue" label="Engine issue"></wc-checkbox>
-        <wc-checkbox name="gearboxIssue" label="Gearbox issue"></wc-checkbox>
-        <wc-checkbox name="needBodyRepair" label="need-body-repair"></wc-checkbox>
-        <wc-checkbox name="needRepainting" label="Need repainting"></wc-checkbox>
-        <wc-checkbox name="wiringProblems" label="Wiring problems"></wc-checkbox>
-        <wc-checkbox name="oilLeakage" label="Oil leakage"></wc-checkbox>
-        <wc-checkbox name="brakeIssue" label="Brake issue"></wc-checkbox>
+    <wc-checkbox name="engineIssue" label="Engine issue?"></wc-checkbox>
+    <wc-checkbox name="gearboxIssue" label="Gearbox issue?"></wc-checkbox>
+    <wc-checkbox name="needBodyRepair" label="Need body repair?"></wc-checkbox>
+    <wc-checkbox name="needRepainting" label="Need repainting?"></wc-checkbox>
+    <wc-checkbox name="wiringProblems" label="Wiring problems?"></wc-checkbox>
+    <wc-checkbox name="oilLeakage" label="Oil leakage?"></wc-checkbox>
+    <wc-checkbox name="brakeIssue" label="Brake issue?"></wc-checkbox>
 
-        <p class="hidden alert checkbox">
-            Please select at least one condition.
-        </p>
-    </div>
+    <p class="hidden alert checkbox">
+        Please select at least one condition.
+    </p>
 
     <wc-button class="button next" label="Next"></wc-button>
 

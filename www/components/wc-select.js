@@ -4,10 +4,7 @@ import Validator from "/classes/validator.js";
 class wcSelect extends wc {
     constructor() {
         super();
-        this.Validator = new Validator({
-            value: this.value,
-            RegExp: this
-        });
+        this.validator = new Validator(this);
     }
 
     get wcTemplate() {
@@ -22,10 +19,12 @@ class wcSelect extends wc {
                         <p class="head__label"></p>
 
                         <div class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26.82" height="16.947" viewBox="0 0 26.82 16.947">
-                                <path id="Path_2" data-name="Path 2" d="M1449.245,45.841l12,14,12-14" transform="translate(-1447.835 -44.431)" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="25.323" viewBox="0 0 44 25.323">
+                                <path id="Polygon_1" data-name="Polygon 1" d="M21.245.869a1,1,0,0,1,1.51,0l19.807,22.8a1,1,0,0,1-.755,1.656H2.193a1,1,0,0,1-.755-1.656Z" transform="translate(44 25.323) rotate(180)"/>
                             </svg>
                         </div>
+
+                        <p class="alert"></p>
                     </div>
 
                     <div class="body-wrapper">
@@ -63,27 +62,37 @@ class wcSelect extends wc {
                 }
 
                 .ui {
+                    position: relative;
                     display: inline-flex;
                     flex-direction: column;
                     width: 280px;
                 }
 
+                .ui .alert {
+                    position: absolute;
+                    bottom: 2px;
+                    right: 5px;
+                    font-size: 11px;
+                    color: red;
+                }
+
                 .ui .head {
                     position: relative;
-                    z-index: 1;
                     display: inline-flex;
                     align-items: center;
-                    height: 50px;
+                    height: 60px;
                     padding: 0 10px;
                     border-radius: 5px;
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
                     background-color: #fff;
+                    border-bottom: 3px solid rgb(var(--color-primary-variant));
                     cursor: pointer;
                 }
 
                 .ui__label {
                     padding: 10px;
                     font-size: 14px;
+                    color: rgb(var(--color-primary-variant));
                 }
 
                 .ui .head__label {
@@ -99,7 +108,7 @@ class wcSelect extends wc {
                     margin-right: 10px;
                 }
 
-                .icon {
+                .ui .icon {
                     display: inline-flex;
                     justify-content: center;
                     align-items: center;
@@ -107,12 +116,17 @@ class wcSelect extends wc {
                     height: 24px;
                     background-color: #eee;
                     border-radius: 50%;
+                    transition: all 200ms ease-in-out;
+                }
+
+                :host([is-open]) .ui .icon {
+                    transform: rotateZ(180deg);
                 }
 
                 .ui .head svg {
                     height: 14px;
                     width: 14px;
-                    fill: #333;
+                    fill: rgb(var(--color-primary-variant));
                     color: transparent;
                 }
 
@@ -129,7 +143,7 @@ class wcSelect extends wc {
                     transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 200ms;
                 }
 
-                .ui .body.visible {
+                :host([is-open]) .ui .body {
                     position: absolute;
                     z-index: 2;
                     top: 0;
@@ -150,7 +164,7 @@ class wcSelect extends wc {
                     display: none;
                 }
 
-                .ui .body.visible .option {
+                :host([is-open]) .ui .body .option {
                     display: inline-flex;
                     align-items: center;
                     flex-shrink: 0;
@@ -164,11 +178,11 @@ class wcSelect extends wc {
                     transition: all ease-in-out 150ms;
                 }
                 
-                .ui .body.visible .option:not(:last-child) {
+                :host([is-open]) .ui .option:not(:last-child) {
                     margin-bottom: 5px;
                 }
 
-                .ui .body.visible .option:hover {
+                :host([is-open]) .ui .option:hover {
                     background-color: #eee;
                 }
                 
@@ -217,6 +231,10 @@ class wcSelect extends wc {
         return this.shadowRoot.querySelector("#option-slot");
     }
 
+    get alert() {
+        return this.shadowRoot.querySelector(".alert");
+    }
+
     get ui() {
         return this.shadowRoot.querySelector(".ui");
     }
@@ -237,29 +255,45 @@ class wcSelect extends wc {
         return this.shadowRoot.querySelector(".ui .invisible-backdrop");
     }
 
+    static optionsFromData(data = []) {
+        return data.map(obj => wc.html`<option value="${obj.id}">${obj.name}</option>`);
+    }
+    
+    get isValid() {
+        return this.validator.validate();
+    }
+
     connectedCallback() {
         this.reset();
         this.updateUI();
 
-        this.wcBuiltIn.addEventListener("change", () => {
-            this.updateUI();
-        });
-
         this.uiHead.addEventListener("click", () => {
-            this.uiBody.classList.toggle("visible");
+            this.toggleAttribute("is-open");
             this.uiInvisibleBackdrop.classList.toggle("active");
         });
         
         this.uiInvisibleBackdrop.addEventListener("click", () => {
-            this.uiBody.classList.remove("visible");
+            this.removeAttribute("is-open");
+            this.uiInvisibleBackdrop.classList.remove("active");
+        });
+
+        this.wcBuiltIn.addEventListener("change", () => {
+            this.validate();
+            this.updateUI();
             this.uiInvisibleBackdrop.classList.remove("active");
         });
     }
 
+    get textValue() {
+        let selected = this.wcBuiltIn.options[this.wcBuiltIn.selectedIndex];
+        return selected ? selected.text : "";
+    }
+
     updateUI() {
-        this.uiHeadLabel.textContent = this.wcBuiltIn.options[this.wcBuiltIn.selectedIndex].text;
+        this.uiHeadLabel.textContent = this.textValue;
         this.uiBody.innerHTML = "";
         [...this.wcBuiltIn.options].forEach(e => {
+            // console.log(this.name, e.text);
             this.uiBody.innerHTML += `
                 <div class="option" value="${e.value}">
                     ${e.text}
@@ -270,13 +304,20 @@ class wcSelect extends wc {
         [...this.uiBody.querySelectorAll(".option")].forEach(e => {
             e.addEventListener("click", () => {
                 this.value = e.getAttribute("value");
-                this.uiBody.classList.toggle("visible");
+                this.toggleAttribute("is-open");
             });
         });
     }
 
-    static optionsFromData(data = []) {
-        return data.map(obj => wc.html`<option value="${obj.id}">${obj.name}</option>`);
+    updateAlert() {
+        this.alert.textContent = this.validator.notification;
+    }
+
+    validate() {
+        let bool = this.validator.validate();
+        this.toggleAttribute("is-invalid", !bool);
+        this.updateAlert();
+        return bool;
     }
 
     reset() {

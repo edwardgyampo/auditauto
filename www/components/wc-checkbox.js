@@ -10,9 +10,16 @@ class wcCheckbox extends wc {
     get wcTemplate() {
         return wc.html`
             <div>
+                <input name="${this.name}" id="${this.id || 'input-0'}" ${this.isRequired ? "required" : ""} type="checkbox">
+                <div class="ui">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="151.304" height="111.096" viewBox="0 0 151.304 111.096">
+                            <rect id="Rectangle_6" data-name="Rectangle 6" width="20" height="68" rx="10" transform="translate(0 50.546) rotate(-30)"/>
+                            <rect id="Rectangle_7" data-name="Rectangle 7" width="20" height="149" rx="10" transform="matrix(0.643, 0.766, -0.766, 0.643, 138.449, 0)"/>
+                        </svg>
+                    </div>
+                </div>
                 <label for="input-0">${this.label || "no label"}</label>
-
-                <input name="${this.name}" id="${this.id || 'input-0'}" ${this.isRequired ? "required" : ""} type="checkbox"></div>
             </div>
         `;
     }
@@ -26,6 +33,65 @@ class wcCheckbox extends wc {
 
                 input {
                     cursor: pointer;
+                    display: none;
+                }
+
+                label {
+                    display: inline-flex;
+                    height: 100%;
+                    width: 100%;
+                    align-items: center;
+                    cursor: pointer;
+                    padding: 10px;
+                    color: rgb(var(--color-primary-variant));
+                }
+
+                :host>div {
+                    position: relative;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 60px;
+                    width: 280px;
+                    border-radius: 5px;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+                }
+
+                .ui {
+                    display: inline-flex;
+                    position: absolute;
+                    right: 14px;
+                }
+
+                .ui .icon {
+                    width: 24px;
+                    height: 24px;
+                    background-color: #eee;
+                    padding: 5px;
+                    display: inline-flex;
+                    border-radius: 5px;
+                }
+
+                .ui .icon svg {
+                    opacity: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+
+                input:checked ~ .ui .icon{
+                    background-color: rgb(var(--color-primary-variant));
+                }
+
+                input:checked ~ .ui .icon svg{
+                    opacity: 1;
+                    fill: #fff;
+                }
+
+                input:checked ~ label{
+                    font-weight: bolder;
                 }
             </style>
         `;

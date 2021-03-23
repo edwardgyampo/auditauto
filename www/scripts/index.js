@@ -30,7 +30,6 @@ class App {
     }
 
     static init() {
-        App.selects.forEach(e => e.wcBuiltIn.addEventListener("change", async () => App.validateSelects()));
         App.nextButton.addEventListener("click", () => App.onClickNextButton());
         
         App.initTextInputsFromData(App.userData.textInputs);
@@ -42,21 +41,43 @@ class App {
 
     static async initSelectsFromData(data = {}) {
         let manufacturers = await postData("/manufacturers/read");
-        let inputAuto = App.automobileSelect.wcBuiltIn;
-        let inputManu = App.manufacturerSelect.wcBuiltIn;
 
         App.manufacturerSelect.repopulate(manufacturers);
-        let manuValue = data.manufacturer && data.manufacturer.value;
-        App.manufacturerSelect.value =  manuValue || "";
-        
-        await App.updateAutomobileSelect();
-        
-        let autoValue = data.automobile && data.automobile.value;
-        inputAuto.value = autoValue || "";
 
-        inputManu.addEventListener("change", async () => {
-            await App.updateAutomobileSelect();
+        let isRecoveryChange = true;
+        
+        App.automobileSelect.addEventListener("selectautomobile", (e) => {
+            if (isRecoveryChange) {
+                let autoValue = data.automobile && data.automobile.value;
+                App.automobileSelect.value = autoValue || "";
+                isRecoveryChange = false;
+            }
         });
+
+        App.manufacturerSelect.addEventListener("selectmanufacturer", async (e) => {
+            await App.updateAutomobileSelect();
+            App.automobileSelect.dispatchEvent(new CustomEvent("selectautomobile", {
+                detail: {
+                    value: e.detail.value
+                }
+            }))
+        });
+
+        App.manufacturerSelect.wcBuiltIn.addEventListener("change", async () => {
+            await App.updateAutomobileSelect();
+            App.automobileSelect.dispatchEvent(new CustomEvent("selectautomobile", {
+                detail: {
+                    value: App.automobileSelect.value
+                }
+            }))
+        });
+
+        App.manufacturerSelect.value =  data.manufacturer && data.manufacturer.value || "";
+        App.manufacturerSelect.dispatchEvent(new CustomEvent("selectmanufacturer", {
+            detail: {
+                value: App.manufacturerSelect.value
+            }
+        }))
     }
 
     static initTextInputsFromData(data = {}) {
@@ -109,16 +130,16 @@ class App {
     }
 
     static validateSelects() {
-        let invalid = App.selects.some(e => !e.value);
-        const result = !invalid;
-        let alert = document.querySelector(".alert.automobile");
-        alert.classList.toggle("hidden", result);
-        return result;
+        let bool = true;
+        App.selects.forEach(e => {
+            bool = bool && e.validate();
+        });
+        return bool;
     }
 
     static async updateAutomobileSelect() {
         if (!App.manufacturerSelect.value) return false;
-
+        
         let automobiles = await postData("/automobiles/read/for-manufacturer", {
             manufacturerId: App.manufacturerSelect.value
         });

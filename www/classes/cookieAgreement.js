@@ -2,7 +2,7 @@ class CookieAgreement {
     constructor() {
         this.isAllowedCookies = localStorage.getItem("isAllowedCookies") ?? false;
 
-        this.isFirstVisit = JSON.parse(localStorage.getItem("isFirstVisit"));
+        this.isFirstVisit = JSON.parse(localStorage.getItem("isFirstVisit")) ?? true;
                 
         if (this.isFirstVisit) CookieAgreement.dialog.classList.remove("hidden");
 
