@@ -65,11 +65,6 @@ class App {
 
         App.manufacturerSelect.wcBuiltIn.addEventListener("change", async () => {
             await App.updateAutomobileSelect();
-            App.automobileSelect.dispatchEvent(new CustomEvent("selectautomobile", {
-                detail: {
-                    value: App.automobileSelect.value
-                }
-            }))
         });
 
         App.manufacturerSelect.value =  data.manufacturer && data.manufacturer.value || "";
