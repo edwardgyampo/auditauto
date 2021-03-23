@@ -21,3 +21,12 @@ body {
     height: 15%;
     background-color: antiquewhite;
 }
+
+.text-inputs {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.text-inputs *:not(:last-child) {
+    margin-bottom: 10px;
+}

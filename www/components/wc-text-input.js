@@ -10,12 +10,19 @@ class wcTextInput extends wc {
     get wcTemplate() {
         return wc.html`
             <div>
-                <label for="${this.id || " input-0"}">${this.label || "no label"}</label>
-            
-                <input name="${this.name}" autocomplete="${this.isAutocomplete ? 'on' : 'off'}" ${this.hasAttribute('required') ? 'required' : '' }
-                    class="input" type="text" placeholder="${this.placeholder}" />
-            
-                <p class="alert"></p>
+                <div class="ui">
+                    <div class="placeholder"></div>
+                </div>
+
+
+                <div class="core">
+                    <label for="${this.id || " input-0"}">${this.label || "no label"}</label>
+                
+                    <input name="${this.name}" autocomplete="${this.isAutocomplete ? 'on' : 'off'}" ${this.hasAttribute('required') ? 'required' : '' }
+                        class="input" type="text" placeholder="${this.placeholder}" />
+                
+                    <p class="alert"></p>
+                </div>
             </div>
         `;
     }
@@ -23,7 +30,54 @@ class wcTextInput extends wc {
     get wcStyle() {
         return wc.html`
             <style>
+                :host {
+                    display: inline-flex;
+                }
 
+                :host>div {
+                    position: relative;
+                    display: inline-flex;
+                    flex-direction: column;
+                }
+
+                .core label{
+                    position: absolute;
+                    font-size: 14px;
+                    top: 3px;
+                    left: 5px;
+                    color: purple;
+                }
+
+                .core input {
+                    position: absolute;
+                    display: inline-flex;
+                    bottom: 10px;
+                    left: 50%;
+                    width: 90%;
+                    transform: translate(-50%, -50%);
+                    border: none;
+                    outline: none;
+                    font-size: 15px;
+                }
+                
+                .core .alert {
+                    position: absolute;
+                    bottom: 3px;
+                    right: 5px;
+                    font-size: 11px;
+                    color: red;
+                }
+                
+                .ui {
+                    position: relative;
+                    display: inline-flex;
+                    width: 280px;
+                    height: 64px;
+                    box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+                    overflow: hidden;
+                    border-bottom: 3px solid purple;
+                    border-radius: 5px 5px 0 0;
+                }
             </style>
         `;
     }
@@ -72,6 +126,10 @@ class wcTextInput extends wc {
 
     get isAutocomplete() {
         return this.hasAttribute("autocomplete");
+    }
+
+    get uiText() {
+        return this.shadowRoot.querySelector(".ui .text");
     }
 
     updateAlert() {

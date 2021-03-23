@@ -83,7 +83,7 @@ class wcSelect extends wc {
 
                 .ui__label {
                     padding: 10px;
-                    font-size: 18px;
+                    font-size: 14px;
                 }
 
                 .ui .head__label {
@@ -92,7 +92,7 @@ class wcSelect extends wc {
                     justify-content: center;
                     height: 40px;
                     width: 224px;
-                    font-size: 18px;
+                    font-size: 15px;
                     background-color: #fff;
                     /* box-shadow: inset 0 0 8px rgba(0, 0, 0, .1); */
                     border-radius: 5px;
@@ -123,6 +123,12 @@ class wcSelect extends wc {
                     width: 100%;
                 }
 
+                .ui .body {
+                    transform: scaleX(1) scaleY(0);
+                    transform-origin: top center;
+                    transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 200ms;
+                }
+
                 .ui .body.visible {
                     position: absolute;
                     z-index: 2;
@@ -136,6 +142,7 @@ class wcSelect extends wc {
                     background-color: #fff;
                     border-radius: 5px;
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+                    transform: scaleX(1) scaleY(1);
                     overflow-y: scroll;
                 }
 
@@ -150,14 +157,15 @@ class wcSelect extends wc {
                     padding-left: 10px;
                     width: 100%;
                     height: 50px;
-                    font-size: 18px;
+                    font-size: 15px;
                     border-radius: 5px;
+                    background-color: #fafafa;
                     cursor: pointer;
                     transition: all ease-in-out 150ms;
                 }
                 
-                .ui .body.visible .option:not(:nth-child(6)) {
-                    border-bottom: 1px solid #eee;
+                .ui .body.visible .option:not(:last-child) {
+                    margin-bottom: 5px;
                 }
 
                 .ui .body.visible .option:hover {
