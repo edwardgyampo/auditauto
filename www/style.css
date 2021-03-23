@@ -8,6 +8,11 @@
     display: none;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 .cookies-agreement {
     position: fixed;
     bottom: 0;

@@ -12,7 +12,7 @@ if (dotenv.error) {
 // All options specific to app are set here.
 app.set("port", process.env.PORT || 8080);
 app.set("isRecreateDB", false);
-app.set("isRecreateTables", true);
+app.set("isRecreateTables", false);
 app.set("rootDir", __dirname);
 app.set("dbConfig", {
     user: process.env.DB_USER,
@@ -24,11 +24,11 @@ app.set("dbConfig", {
 
 // Make the pre-included postgres database active for performing before-launch operations.
 // Allows dynamic creation of app database and all tables.
-if (process.env.MODE == "development" && app.get("isRecreateDB")) {
+if (process.env.APP_MODE == "development" && app.get("isRecreateDB")) {
     let initialConfig = Object.assign({}, app.get("dbConfig"), { database: "postgres" });
     app.set("dbConn", new pg.Pool(initialConfig));
 }
-else if (process.env.MODE == "development") {
+else if (process.env.APP_MODE == "development") {
     app.set("dbConn", new pg.Pool(app.get("dbConfig")));
 }
 else {
@@ -36,7 +36,7 @@ else {
 }
 
 (async () => {
-    if (app.get("isRecreateDB") && await localDatabaseExists() && process.env.MODE == "development") {
+    if (app.get("isRecreateDB") && await localDatabaseExists() && process.env.APP_MODE == "development") {
         let name = app.get("dbConfig").database;
         let sql = `DROP DATABASE ${name} WITH (FORCE);`;
         await app.get("dbConn").query(sql);
@@ -48,7 +48,7 @@ else {
 
         let recreateDBTests = [
             app.get("isRecreateDB"),
-            process.env.MODE == "development",
+            process.env.APP_MODE == "development",
             !await localDatabaseExists()
         ];
 
@@ -60,7 +60,7 @@ else {
         }
 
         let isRecreateTables = isReinsertRows =
-            (await localDatabaseExists() || process.env.MODE == "development")
+            (await localDatabaseExists() || process.env.APP_MODE == "development")
             &&
             app.get("isRecreateTables");
 
