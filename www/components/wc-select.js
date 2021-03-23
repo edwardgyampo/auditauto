@@ -69,6 +69,8 @@ class wcSelect extends wc {
                 }
 
                 .ui .head {
+                    position: relative;
+                    z-index: 1;
                     display: inline-flex;
                     align-items: center;
                     height: 50px;
@@ -123,6 +125,7 @@ class wcSelect extends wc {
 
                 .ui .body.visible {
                     position: absolute;
+                    z-index: 2;
                     top: 0;
                     left: 0;
                     display: inline-flex;
@@ -165,7 +168,7 @@ class wcSelect extends wc {
                     position:fixed;
                     top: 0;
                     left:0;
-                    z-index: -1;
+                    z-index: 0;
                     width: 100vw;
                     height: 100vh;
                 }
@@ -247,7 +250,6 @@ class wcSelect extends wc {
 
     updateUI() {
         this.uiHeadLabel.textContent = this.wcBuiltIn.options[this.wcBuiltIn.selectedIndex].text;
-        // this.uiHeadCount.textContent = 
         this.uiBody.innerHTML = "";
         [...this.wcBuiltIn.options].forEach(e => {
             this.uiBody.innerHTML += `
