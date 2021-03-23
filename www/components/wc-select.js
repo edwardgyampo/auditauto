@@ -136,7 +136,7 @@ class wcSelect extends wc {
                     background-color: #fff;
                     border-radius: 5px;
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
-                    overflow: hidden;
+                    overflow-y: scroll;
                 }
 
                 .ui .option {
