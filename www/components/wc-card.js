@@ -33,9 +33,8 @@ class wcCard extends wc {
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
-                    width: 280px;
-                    height: 420px;
-                    padding: 24px;
+                    width: 296px;
+                    height: 460px;
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
                     border-radius: 5px;
                     overflow: hidden;

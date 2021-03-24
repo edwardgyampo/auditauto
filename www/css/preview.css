@@ -3,14 +3,14 @@ body {
     justify-content: center;
 }
 
-wc-button.okay {
-    background-color:#337633;
+[slot="icon"] {
+    fill: rgb(var(--color-secondary-variant));
 }
 
-[slot="icon"] {
-    fill: #337633;
+wc-button.okay {
+    background-color: rgb(var(--color-secondary-variant));
 }
 
 wc-button.edit {
-    background-color: rgb(7, 172, 184);
+    background-color: rgb(var(--color-primary-variant));
 }

@@ -24,3 +24,7 @@
 .alert.checkbox {
     margin-bottom: 14px;
 }
+
+wc-button.next {
+    background-color: rgb(var(--color-primary-variant));
+}
