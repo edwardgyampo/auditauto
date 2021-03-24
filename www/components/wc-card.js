@@ -8,7 +8,7 @@ class wcCard extends wc {
     get wcTemplate() {
         return wc.html`
         <div>
-            <slot class="icon"></slot>
+            <slot class="icon" name="icon"></slot>
         
             <h1 class="title">${this.title || "no title"}</h1>
             <p class="description">${this.description || "no description"}</p>
@@ -47,22 +47,27 @@ class wcCard extends wc {
                     height: 128px;
                     margin-bottom: 24px;
                     border-radius: 5px;
-                    background-color: #eee;
+                }
+
+                .icon::slotted(*) {
+                    height: 100%;
                 }
 
                 .title {
                     font-size: 24px;
                     font-weight: bold;
+                    text-align: center;
                     margin-bottom: 8px;
                 }
-
+                
                 .description {
                     margin-bottom: 14px;
                     text-align: center;
                 }
-
+                
                 .conclusion {
                     font-size: 14px;
+                    text-align: center;
                     margin-bottom: 18px;
                 }
 

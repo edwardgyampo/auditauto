@@ -18,6 +18,8 @@ class wcButton extends wc {
             <style>
                 :host {
                     display: inline-flex;
+                    background-color: rgb(var(--color-primary));
+                    border-radius: 5px;
                 }
 
                 :host(:not([auto-width])) {
@@ -29,11 +31,10 @@ class wcButton extends wc {
                 }
 
                 :host>div {
+                    width: 100%;
                     display: inline-flex;
                     padding: 10px 18px;
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
-                    border-radius: 5px;
-                    background-color: rgb(var(--color-primary));
                     overflow: hidden;
                 }
                 

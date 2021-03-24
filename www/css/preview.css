@@ -2,3 +2,15 @@ body {
     height: 100%;
     justify-content: center;
 }
+
+wc-button.okay {
+    background-color:#337633;
+}
+
+[slot="icon"] {
+    fill: #337633;
+}
+
+wc-button.edit {
+    background-color: rgb(7, 172, 184);
+}
