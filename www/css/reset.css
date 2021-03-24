@@ -18,15 +18,14 @@
     --color-on-background: 255, 255, 255; */
 }
 
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-.hidden {
-    display: none;
+html {
+    height: 100%;
 }
 
 body {
@@ -34,31 +33,19 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-bottom: 320px;
-}
-
-.cookies-agreement {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 24px;
-    background-color: #fff;
-    box-shadow: -8px 0 8px rgba(0, 0, 0, .1);
-}
-
-.cookies-agreement .text {
-    padding: 10px;
+    padding-top: 24px;
+    padding-bottom: 64px;
+    overflow-y: scroll;
 }
 
 wc-text-input, wc-select {
-    margin-bottom: 32px;
+    margin: 14px;
 }
 
 wc-checkbox {
-    margin-bottom: 14px;
+    margin: 14px;
 }
 
 wc-button {
-    margin-top: 24px;
+    margin: 10px;
 }

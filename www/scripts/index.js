@@ -20,18 +20,18 @@ class App {
     static get textInputs() {
         return [...document.querySelectorAll("wc-text-input")];
     }
-    
+
     static get selects() {
         return [...document.querySelectorAll("wc-select")];
     }
 
     static get checkboxes() {
-        return  [...document.querySelectorAll("wc-checkbox")];
+        return [...document.querySelectorAll("wc-checkbox")];
     }
 
     static init() {
         App.nextButton.addEventListener("click", () => App.onClickNextButton());
-        
+
         App.initTextInputsFromData(App.userData.textInputs);
         App.initSelectsFromData(App.userData.selects);
         App.initCheckboxesFromData(App.userData.checkboxes);
@@ -45,7 +45,7 @@ class App {
         App.manufacturerSelect.repopulate(manufacturers);
 
         let isRecoveryChange = true;
-        
+
         App.automobileSelect.addEventListener("selectautomobile", (e) => {
             if (isRecoveryChange) {
                 let autoValue = data.automobile && data.automobile.value;
@@ -67,7 +67,7 @@ class App {
             await App.updateAutomobileSelect();
         });
 
-        App.manufacturerSelect.value =  data.manufacturer && data.manufacturer.value || "";
+        App.manufacturerSelect.value = data.manufacturer && data.manufacturer.value || "";
         App.manufacturerSelect.dispatchEvent(new CustomEvent("selectmanufacturer", {
             detail: {
                 value: App.manufacturerSelect.value
@@ -92,7 +92,7 @@ class App {
 
         if (invalidForm) return;
 
-        let buffer = { selects: {}, textInputs: {}, checkboxes: {} };        
+        let buffer = { selects: {}, textInputs: {}, checkboxes: {} };
         App.selects.forEach(select => {
             let e = select.wcBuiltIn;
             let key = buffer.selects[e.name] = {};
@@ -106,8 +106,8 @@ class App {
         });
 
         localStorage.setItem("userData", JSON.stringify(buffer));
-        
-        window.location.href = '/pages/preview.html';
+
+        window.location.href = '/html/preview.html';
     }
 
     static validateTextInputs() {
@@ -133,12 +133,15 @@ class App {
     }
 
     static async updateAutomobileSelect() {
-        if (!App.manufacturerSelect.value) return false;
-        
+        if (!App.manufacturerSelect.value) {
+            App.automobileSelect.repopulate([]);
+            return;
+        }
+
         let automobiles = await postData("/automobiles/read/for-manufacturer", {
             manufacturerId: App.manufacturerSelect.value
         });
-        
+
         App.automobileSelect.repopulate(automobiles);
     }
 }

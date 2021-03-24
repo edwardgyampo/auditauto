@@ -20,12 +20,20 @@ class wcButton extends wc {
                     display: inline-flex;
                 }
 
+                :host(:not([auto-width])) {
+                    width: 280px;
+                }
+
+                :host(:not([auto-height])) {
+                    height: 45px;
+                }
+
                 :host>div {
                     display: inline-flex;
-                    width: 280px;
-                    height: 45px;
+                    padding: 10px 18px;
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
                     border-radius: 5px;
+                    background-color: rgb(var(--color-primary));
                     overflow: hidden;
                 }
                 
@@ -38,7 +46,7 @@ class wcButton extends wc {
                     color: rgb(var(--color-on-primary));
                     font-size: 15px;
                     text-transform: uppercase;
-                    background-color: rgb(var(--color-primary));
+                    background-color: transparent;
                 }
             </style>
         `;

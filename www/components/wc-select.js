@@ -13,7 +13,7 @@ class wcSelect extends wc {
                 <div class="ui">
                     <div class="invisible-backdrop"></div>
 
-                    <p class="ui__label">${this.label}</p>
+                    <p class="ui__label">${this.label || "No Label"}</p>
 
                     <div class="head">
                         <p class="head__label"></p>
@@ -39,8 +39,7 @@ class wcSelect extends wc {
             
                     <slot id="option-slot" style="display: none"></slot>
                 
-                    <select class="hidden" name="${this.name}" id="pet-select" class="input" placeholder="${this.getAttribute(" placeholder")}">
-                    </select>
+                    <select class="hidden" name="${this.name}" id="pet-select" class="input" placeholder="${this.getAttribute(" placeholder")}"></select>
                 </div>
             </div>
         `;
@@ -86,6 +85,8 @@ class wcSelect extends wc {
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
                     background-color: #fff;
                     border-bottom: 3px solid rgb(var(--color-primary-variant));
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
                     cursor: pointer;
                 }
 
@@ -155,6 +156,8 @@ class wcSelect extends wc {
                     padding: 10px;
                     background-color: #fff;
                     border-radius: 5px;
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
                     transform: scaleX(1) scaleY(1);
                     overflow-y: scroll;

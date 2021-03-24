@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuditAuto | Preview</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/preview.css">
+</head>
+
+<body>
+    <wc-card title="Thank you!" description="We have received your submission."
+        conclusion="Make changes when necessary.">
+
+        <wc-button auto-width auto-height slot="buttons" label="Okay"></wc-button>
+
+        <a href="/index.html" slot="buttons">
+            <wc-button auto-width auto-height label="Make Changes"></wc-button>
+        </a>
+    </wc-card>
+
+    <script src="/helpers/post-data.js"></script>
+    <script type="module" src="/components/wc-button.js"></script>
+    <script type="module" src="/components/wc-card.js"></script>
+    <script type="module" src="/scripts/preview.js"></script>
+</body>
+
+</html>

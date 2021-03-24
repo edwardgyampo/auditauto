@@ -11,8 +11,10 @@ class Preview {
             model: Preview.model
         };
 
+        let card = document.querySelector("wc-card");
+        card.setAttribute("title", `Thank you, ${Preview.name.split(" ")[0]}!`);
+        
         console.log(finalData);
-        Preview.info.append(JSON.stringify(finalData));
     }
 
     static get name() {
@@ -41,10 +43,6 @@ class Preview {
 
     static get conditions() {
         return Object.keys(this.userData.checkboxes).join(", ");
-    }
-
-    static get info() {
-        return document.querySelector(".info");
     }
 }
 
