@@ -61,6 +61,7 @@ class wcCheckbox extends wc {
                 }
 
                 .ui {
+                    pointer-events: none;
                     display: inline-flex;
                     position: absolute;
                     right: 14px;

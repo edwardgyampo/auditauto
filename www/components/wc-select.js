@@ -259,7 +259,8 @@ class wcSelect extends wc {
     }
 
     static optionsFromData(data = []) {
-        return data.map(obj => wc.html`<option value="${obj.id}">${obj.name}</option>`);
+        let newOptions =  data.map(obj => wc.html`<option value="${obj.id}">${obj.name}</option>`);
+        return newOptions;
     }
     
     get isValid() {

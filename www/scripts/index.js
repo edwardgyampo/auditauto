@@ -29,6 +29,19 @@ class App {
         return [...document.querySelectorAll("wc-checkbox")];
     }
 
+    static get sampleDataManufacturers() {
+        return App.sampleData.map((obj, i) => {
+            return { id: i + 1, name: obj.name };
+        });
+    }
+
+    static get sampleDataAutomobiles() {
+        let data = App.sampleData.map((obj, i) => {
+            return { id: i + 1, models: obj.models };
+        });
+        return data;
+    }
+
     static init() {
         App.nextButton.addEventListener("click", () => App.onClickNextButton());
 
@@ -40,9 +53,7 @@ class App {
     }
 
     static async initSelectsFromData(data = {}) {
-        let manufacturers = await postData("/manufacturers/read");
-
-        App.manufacturerSelect.repopulate(manufacturers);
+        App.manufacturerSelect.repopulate(App.sampleDataManufacturers);
 
         let isRecoveryChange = true;
 
@@ -132,17 +143,152 @@ class App {
         return bool;
     }
 
-    static async updateAutomobileSelect() {
-        if (!App.manufacturerSelect.value) {
-            App.automobileSelect.repopulate([]);
-            return;
-        }
+    // Returns all models for manufacturer while maintaining
+    // unique ids even though arrays are used.
+    // NB: Allows persisting data for reuse upon site revisit.
+    // Eg. User should be able to see last-selected model, before they
+    // decide to make changes.
+    // So where there is a total of 50 models, ids should start from 1 to
+    // 50 in-spite-of re-indexing (0 to 5) applied to 'models' arrays in App.sampleData
+    static getModelByManufacturerId(id) {
+        let modelCount = 0;
 
-        let automobiles = await postData("/automobiles/read/for-manufacturer", {
-            manufacturerId: App.manufacturerSelect.value
+        let data = App.sampleDataAutomobiles.find(obj => {
+            let isMatch = obj.id == id;
+            if (!isMatch) modelCount += obj.models.length;
+            return isMatch;
         });
 
-        App.automobileSelect.repopulate(automobiles);
+        return data.models.map((model) => {
+            return { id: ++modelCount, name: model };
+        });
+    }
+
+    static async getModelByManufacturerIdDb(id) {
+        return await postData("/automobiles/read/for-manufacturer", {
+            manufacturerId: id
+        });
+    }
+
+    static async getManufacturersDb() {
+        return await postData("/manufacturers/read");
+    }
+
+    static async updateAutomobileSelect() {
+        let isManufacturerSelected = App.manufacturerSelect.value;
+        let select =  App.automobileSelect;
+        if (!isManufacturerSelected) {
+            select.repopulate([]);
+            return;
+        }
+        let manufacturerId = App.manufacturerSelect.value;
+        let models = App.getModelByManufacturerId(manufacturerId);
+        select.repopulate(models);
+    }
+
+    static get sampleData() {
+        return [
+            {
+                name: 'Volkswagen',
+                models: [
+                    'Atlas',
+                    'Tiguan',
+                    'Jetta',
+                    'Passat',
+                    'Golf',
+                ]
+            },
+            {
+                name: 'Nissan',
+                models: [
+                    'Versa',
+                    'Sentra',
+                    'Altima',
+                    'Maxima',
+                    'Pathfinder',
+                ]
+            },
+            {
+                name: 'BMW',
+                models: [
+                    '2 Series coupé',
+                    '3 Series Sedan',
+                    '3 Series Touring',
+                    '4 Series Convertible',
+                    'Z4',
+                ]
+            },
+            {
+                name: 'Tesla Inc.',
+                models: [
+                    'Model S',
+                    'Model Y',
+                    'Model 3',
+                    'Model X',
+                    'Cybertruck',
+                ]
+            },
+            {
+                name: 'Ford',
+                models: [
+                    'Fusion',
+                    'Mustang',
+                    'Bronco',
+                    'Expedition',
+                    'Ranger',
+                ]
+            },
+            {
+                name: 'Toyota',
+                models: [
+                    'Avalon',
+                    'Camry',
+                    'Corolla',
+                    'Sienna',
+                    'Yaris',
+                ]
+            },
+            {
+                name: 'Mercedes-Benz',
+                models: [
+                    'GLA SUV',
+                    'GLB SUV',
+                    'GLC SUV',
+                    'GLC Coupe',
+                    'GLS SUV',
+                ]
+            },
+            {
+                name: 'Honda',
+                models: [
+                    'Atlas',
+                    'Tiguan',
+                    'Jetta',
+                    'Passat',
+                    'Golf',
+                ]
+            },
+            {
+                name: 'Audi',
+                models: [
+                    'RS 7',
+                    'TTS',
+                    'e-tron GT',
+                    'A4 allroad',
+                    'A7 e',
+                ]
+            },
+            {
+                name: 'Kia',
+                models: [
+                    'Soul',
+                    'Sportage',
+                    'Seltos',
+                    'Telluride',
+                    'Carnival MPV',
+                ]
+            },
+        ];
     }
 }
 
