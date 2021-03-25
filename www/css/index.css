@@ -28,3 +28,7 @@
 wc-button.next {
     background-color: rgb(var(--color-primary-variant));
 }
+
+wc-footer {
+    margin-top: 64px;
+}

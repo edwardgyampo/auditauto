@@ -7,7 +7,7 @@ body {
     fill: rgb(var(--color-secondary-variant));
 }
 
-wc-button.okay {
+wc-button.submit {
     background-color: rgb(var(--color-secondary-variant));
 }
 

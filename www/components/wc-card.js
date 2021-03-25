@@ -35,6 +35,7 @@ class wcCard extends wc {
                     justify-content: center;
                     width: 296px;
                     height: 460px;
+                    padding: 14px;
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
                     border-radius: 5px;
                     overflow: hidden;
@@ -62,12 +63,14 @@ class wcCard extends wc {
                 .description {
                     margin-bottom: 14px;
                     text-align: center;
+                    opacity: .9;
                 }
                 
                 .conclusion {
                     font-size: 14px;
                     text-align: center;
                     margin-bottom: 18px;
+                    opacity: .7;
                 }
 
                 wc-button {

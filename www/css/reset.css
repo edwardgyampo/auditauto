@@ -2,14 +2,14 @@
 
 :root {
     /* Light Theme */
-    --color-primary: 98, 0, 238;
-    --color-primary-variant: 55, 0, 179;
-    --color-secondary: 3, 218, 198;
-    --color-secondary-variant: 1, 135, 134;
+    --color-primary: 248, 68, 79;
+    --color-primary-variant: 44, 146, 228;
+    --color-secondary: 120, 189, 196;
+    --color-secondary-variant: 1, 44, 61;
     --color-background: 255, 255, 255;
     --color-surface: 255, 255, 255;
     --color-error: 176, 0, 32;
-    --color-on-primary: 255, 255, 255;
+    --color-on-primary: 247, 248, 243;
     --color-on-secondary: 0, 0, 0;
     --color-on-background: 0, 0, 0;
     --color-on-surface: 0, 0, 0;
@@ -40,8 +40,6 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-top: 24px;
-    padding-bottom: 64px;
     overflow-y: scroll;
 }
 

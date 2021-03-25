@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <wc-card title="Thank you!" description="We have received your submission."
+    <wc-card  description="PRESS SUBMIT to confirm submission."
         conclusion="Make changes when necessary.">
 
         <svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="408.286" height="327.272" viewBox="0 0 408.286 327.272">
@@ -38,16 +38,17 @@
             </g>
         </svg>
 
-        <wc-button class="okay" auto-width auto-height slot="buttons" label="Okay"></wc-button>
+        <wc-button class="submit" auto-width auto-height slot="buttons" label="Submit"></wc-button>
 
         <a href="/index.html" slot="buttons">
-            <wc-button class="edit" auto-width auto-height label="Make Changes"></wc-button>
+            <wc-button class="edit" auto-width auto-height label="Make Changes Now"></wc-button>
         </a>
     </wc-card>
 
     <script src="/helpers/post-data.js"></script>
     <script type="module" src="/components/wc-button.js"></script>
     <script type="module" src="/components/wc-card.js"></script>
+    <script type="module" src="/components/wc-header.js"></script>
     <script type="module" src="/scripts/preview.js"></script>
 </body>
 

@@ -11,13 +11,15 @@
 </head>
 
 <body>
-    <a href="/html/admin.html">
+    <wc-header></wc-header>
+
+    <!-- <a href="/html/admin.html">
         <wc-button label="[Debug] Admin Page"></wc-button>
     </a>
 
     <a href="/html/preview.html">
         <wc-button label="[Debug] Submission Preview"></wc-button>
-    </a>
+    </a> -->
 
     <wc-text-input name="fullName" label="Full Name*" required placeholder="Full Name">
         <wc-reg-exp description="Invalid Full Name Format!"
@@ -88,12 +90,16 @@
         </p>
     </div>
 
+    <wc-footer></wc-footer>
+
     <script src="/helpers/post-data.js"></script>
     <script type="module" src="/components/wc-reg-exp.js"></script>
     <script type="module" src="/components/wc-text-input.js"></script>
     <script type="module" src="/components/wc-select.js"></script>
     <script type="module" src="/components/wc-button.js"></script>
     <script type="module" src="/components/wc-checkbox.js"></script>
+    <script type="module" src="/components/wc-header.js"></script>
+    <script type="module" src="/components/wc-footer.js"></script>
     <script type="module" src="/scripts/index.js"></script>
 </body>
 

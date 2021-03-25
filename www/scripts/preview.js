@@ -12,9 +12,15 @@ class Preview {
         };
 
         let card = document.querySelector("wc-card");
-        card.setAttribute("title", `Thank you, ${Preview.name.split(" ")[0]}!`);
+        card.setAttribute("title", `Form Ready!`);
         
-        console.log(finalData);
+        Preview.submitButton.addEventListener("click", () => {
+            console.log(finalData);
+        });
+    }
+
+    static get submitButton() {
+        return document.querySelector("wc-button.submit");
     }
 
     static get name() {
