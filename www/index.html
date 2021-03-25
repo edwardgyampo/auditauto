@@ -11,15 +11,14 @@
 </head>
 
 <body>
-    <wc-header></wc-header>
-
-    <!-- <a href="/html/admin.html">
-        <wc-button label="[Debug] Admin Page"></wc-button>
-    </a>
-
-    <a href="/html/preview.html">
-        <wc-button label="[Debug] Submission Preview"></wc-button>
-    </a> -->
+    <div class="text">
+        <a class="brand" href="/index.html">AuditAuto</a>
+        <h1 class="title">Guiding automobile businesses into growth.</h1>
+        <p class="description">
+            State your current situation after using an automobile and we'll provide thorough
+            assessment of your data to manufacturers to satisfy your demands.
+        </p>
+    </div>
 
     <wc-text-input name="fullName" label="Full Name*" required placeholder="Full Name">
         <wc-reg-exp description="Invalid Full Name Format!"
@@ -62,13 +61,13 @@
         Please select an Automobile!
     </p>
 
-    <wc-checkbox name="engineIssue" label="Engine issue?"></wc-checkbox>
-    <wc-checkbox name="gearboxIssue" label="Gearbox issue?"></wc-checkbox>
-    <wc-checkbox name="needBodyRepair" label="Need body repair?"></wc-checkbox>
-    <wc-checkbox name="needRepainting" label="Need repainting?"></wc-checkbox>
-    <wc-checkbox name="wiringProblems" label="Wiring problems?"></wc-checkbox>
-    <wc-checkbox name="oilLeakage" label="Oil leakage?"></wc-checkbox>
-    <wc-checkbox name="brakeIssue" label="Brake issue?"></wc-checkbox>
+    <wc-checkbox name="engineIssue" label="Engine Issue"></wc-checkbox>
+    <wc-checkbox name="gearboxIssue" label="Gearbox Issue"></wc-checkbox>
+    <wc-checkbox name="needBodyRepair" label="Need Body Repair"></wc-checkbox>
+    <wc-checkbox name="needRepainting" label="Need Repainting"></wc-checkbox>
+    <wc-checkbox name="wiringProblems" label="Wiring Problems"></wc-checkbox>
+    <wc-checkbox name="oilLeakage" label="Oil Leakage"></wc-checkbox>
+    <wc-checkbox name="brakeIssue" label="Brake Issue"></wc-checkbox>
 
     <p class="hidden alert checkbox">
         Please select at least one condition.
@@ -98,8 +97,6 @@
     <script type="module" src="/components/wc-select.js"></script>
     <script type="module" src="/components/wc-button.js"></script>
     <script type="module" src="/components/wc-checkbox.js"></script>
-    <script type="module" src="/components/wc-header.js"></script>
-    <script type="module" src="/components/wc-footer.js"></script>
     <script type="module" src="/scripts/index.js"></script>
 </body>
 

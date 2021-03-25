@@ -29,23 +29,33 @@ class wcCheckbox extends wc {
             <style>
                 :host {
                     display: inline-flex;
+                    color: rgb(var(--color-primary-variant));
                 }
-
+                
                 input {
                     cursor: pointer;
                     display: none;
                 }
-
+                
                 label {
                     display: inline-flex;
                     height: 100%;
                     width: 100%;
+                    letter-spacing: 1px;
                     align-items: center;
                     cursor: pointer;
                     padding: 10px;
-                    color: rgb(var(--color-primary-variant));
+                    opacity: .7;
+                }
+               
+                input:checked ~ label{
+                    opacity: 1;
                 }
 
+                :host([checked]) label {
+                    background-color: rgba(101, 212, 109, .1);
+                }
+                
                 :host>div {
                     position: relative;
                     display: inline-flex;
@@ -59,14 +69,14 @@ class wcCheckbox extends wc {
                     overflow: hidden;
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
                 }
-
+                
                 .ui {
                     pointer-events: none;
                     display: inline-flex;
                     position: absolute;
                     right: 14px;
                 }
-
+                
                 .ui .icon {
                     width: 24px;
                     height: 24px;
@@ -75,33 +85,29 @@ class wcCheckbox extends wc {
                     display: inline-flex;
                     border-radius: 5px;
                 }
-
+                
                 .ui .icon svg {
                     opacity: 0;
                     width: 100%;
                     height: 100%;
                 }
-
-                input:checked ~ .ui .icon{
-                    background-color: rgb(var(--color-primary-variant));
+                
+                :host([checked]) .ui .icon {
+                    background-color: rgb(101, 212, 109);
                 }
-
+                
                 input:checked ~ .ui .icon svg{
                     opacity: 1;
                     fill: #fff;
                 }
-
-                input:checked ~ label{
-                    font-weight: bolder;
-                }
-            </style>
+                </style>
         `;
     }
-
+    
     get isRequired() {
         return this.hasAttribute("required");
     }
-
+    
     get isValid() {
         return this.validator.validate();
     }
@@ -115,7 +121,8 @@ class wcCheckbox extends wc {
     }
 
     set checked(bool) {
-        return this.wcBuiltIn.checked = bool;
+        this.wcBuiltIn.checked = bool;
+        this.toggleAttribute("checked", this.checked);
     }
 
     get value() {
@@ -124,6 +131,7 @@ class wcCheckbox extends wc {
 
     set value(val) {
         this.wcBuiltIn.value = val;
+        this.toggleAttribute("checked", this.checked);
     }
 
     get name() {
@@ -134,8 +142,14 @@ class wcCheckbox extends wc {
         return this.getAttribute("label");
     }
 
-    connectedCallback() {
+    get labelEl() {
+        return this.shadowRoot.querySelector("label");
+    }
 
+    connectedCallback() {
+        this.wcBuiltIn.addEventListener("change", () => {
+            this.toggleAttribute("checked", this.checked);
+        });
     }
 }
 

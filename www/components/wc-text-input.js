@@ -13,14 +13,14 @@ class wcTextInput extends wc {
                 <div class="ui">
                     <div class="placeholder"></div>
                 </div>
-
-
+            
+            
                 <div class="core">
                     <label for="${this.id || " input-0"}">${this.label || "no label"}</label>
-                
-                    <input name="${this.name}" autocomplete="${this.isAutocomplete ? 'on' : 'off'}" ${this.hasAttribute('required') ? 'required' : '' }
-                        class="input" type="text" placeholder="${this.placeholder}" />
-                
+            
+                    <input name="${this.name}" autocomplete="${this.isAutocomplete ? 'on' : 'off'}" ${this.hasAttribute('required')
+                       ? 'required' : '' } class="input" type="text" placeholder="${this.placeholder}" />
+            
                     <p class="alert"></p>
                 </div>
             </div>
@@ -65,7 +65,8 @@ class wcTextInput extends wc {
                     bottom: 3px;
                     right: 5px;
                     font-size: 11px;
-                    color: red;
+                    color: rgb(var(--color-error));
+                    text-shadow: -2px -2px 3px rgba(0, 0, 0, .1);
                 }
                 
                 .ui {
@@ -75,6 +76,7 @@ class wcTextInput extends wc {
                     height: 64px;
                     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
                     overflow: hidden;
+                    background-color: #fff;
                     border-bottom: 3px solid rgb(var(--color-primary-variant));
                     border-radius: 5px 5px 0 0;
                 }
@@ -139,6 +141,7 @@ class wcTextInput extends wc {
         let bool = this.validator.validate();
         this.toggleAttribute("is-invalid", !bool);
         this.updateAlert();
+        this.toggleAttribute("is-valid", bool);
         return bool;
     }
 

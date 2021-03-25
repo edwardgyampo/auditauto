@@ -8,7 +8,7 @@ class wcButton extends wc {
     get wcTemplate() {
         return wc.html`
         <div>
-            <button>${this.label}</button>    
+            <button><span class="label">${this.label}</span></button>    
         </div>
         `;
     }
@@ -24,10 +24,6 @@ class wcButton extends wc {
 
                 :host(:not([auto-width])) {
                     width: 280px;
-                }
-
-                :host(:not([auto-height])) {
-                    height: 45px;
                 }
 
                 :host>div {
@@ -48,6 +44,10 @@ class wcButton extends wc {
                     font-size: 15px;
                     text-transform: uppercase;
                     background-color: transparent;
+                }
+
+                .label {
+                    letter-spacing: 1px;
                 }
             </style>
         `;

@@ -113,7 +113,9 @@ class App {
 
         App.textInputs.forEach(e => buffer.textInputs[e.name] = e.value);
         App.checkboxes.forEach(e => {
-            if (e.checked) buffer.checkboxes[e.name] = e.checked
+            if (e.checked) {
+                buffer.checkboxes[e.name] = { label: e.label };
+            }
         });
 
         localStorage.setItem("userData", JSON.stringify(buffer));

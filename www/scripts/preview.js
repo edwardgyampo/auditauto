@@ -4,15 +4,19 @@ class Preview {
 
         let finalData = {
             name: Preview.name,
-            conditions: Preview.conditions,
             email: Preview.email,
             refcode: Preview.refcode,
             make: Preview.make,
-            model: Preview.model
+            model: Preview.model,
+            conditions: Preview.conditions
         };
 
-        let card = document.querySelector("wc-card");
-        card.setAttribute("title", `Form Ready!`);
+        document.querySelector(".full-name").textContent = Preview.name;
+        document.querySelector(".reference-code").textContent = Preview.refcode;
+        document.querySelector(".email").textContent = Preview.email;
+        document.querySelector(".manufacturer").textContent = Preview.make;
+        document.querySelector(".automobile").textContent = Preview.model;
+        document.querySelector(".conditions").textContent = Preview.conditions;
         
         Preview.submitButton.addEventListener("click", () => {
             console.log(finalData);
@@ -48,7 +52,10 @@ class Preview {
     }
 
     static get conditions() {
-        return Object.keys(this.userData.checkboxes).join(", ");
+        let kvPairs = Object.entries(this.userData.checkboxes);
+        let checkboxes = kvPairs.map(arr => arr[1]);
+        let labels = checkboxes.map(obj => obj.label);
+        return labels.join(", ");
     }
 }
 

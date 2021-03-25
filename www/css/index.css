@@ -1,3 +1,7 @@
+body {
+    padding: 64px 0;
+}
+
 .hidden {
     display: none;
 }
@@ -16,19 +20,50 @@
     padding: 10px;
 }
 
+.text {
+    width: 100%;
+    padding: 0 24px;
+    overflow: hidden;
+    max-width: 560px;
+    margin-bottom: 32px;
+}
+
+.brand {
+    display: inline-flex;
+    font-size: 24px;
+    margin-bottom:13px;
+    color: rgb(var(--color-primary));
+    text-decoration: none;
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
+
+.title {
+    color: rgba(var(--color-secondary-variant));
+    font-size: 28px;
+    text-transform: capitalize;
+    margin-bottom: 14px;
+}
+
+.description {
+    font-size: 18px;
+    color: rgba(var(--color-on-background), .6);
+    line-height: 24px;
+}
+
 
 .alert {
-    color: red;
+    color: rgb(var(--color-error));
 }
 
 .alert.checkbox {
     margin-bottom: 14px;
 }
 
-wc-button.next {
-    background-color: rgb(var(--color-primary-variant));
+wc-checkbox {
+    color: rgb(var(--color-error));
 }
 
-wc-footer {
-    margin-top: 64px;
+wc-button.next {
+    background-color: rgb(var(--color-primary-variant));
 }
