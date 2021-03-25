@@ -1,3 +1,7 @@
+// A validator object, when an input class is composed with it
+// allows detection of invalid input and then updates the notification
+// field of the validator object such that input can determine its
+// validity and what error message to display.
 class Validator {
     constructor(obj) {
         this.obj = obj;
@@ -5,8 +9,6 @@ class Validator {
         this.notification = "";
     }
 
-    // Regular Expressions which determine the validity
-    // of the object (obj) to which they are assigned.
     get regExps() {
         return this.obj.querySelectorAll("wc-reg-exp");
     }

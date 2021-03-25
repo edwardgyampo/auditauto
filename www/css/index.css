@@ -51,19 +51,29 @@ body {
     line-height: 24px;
 }
 
-
 .alert {
+    display: none;
+}
+
+.alert.is-active {
+    display: inline-flex;
     color: rgb(var(--color-error));
+    animation: shake 120ms ease-in-out 3;
 }
 
 .alert.checkbox {
     margin-bottom: 14px;
 }
 
-wc-checkbox {
-    color: rgb(var(--color-error));
+wc-button.next {
+    background-color: rgb(95, 74, 161);
 }
 
-wc-button.next {
-    background-color: rgb(var(--color-primary-variant));
+@keyframes shake {
+    from {
+        transform: translateX(-5%);
+    }
+    to {
+        transform: translateX(5%);
+    }
 }

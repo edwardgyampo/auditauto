@@ -38,35 +38,90 @@ class wcTextInput extends wc {
                     position: relative;
                     display: inline-flex;
                     flex-direction: column;
+                    overflow: hidden;
+                    box-shadow: 0 0 3px rgba(0, 0, 0, .2);
+                    border-bottom: 3px solid rgb(var(--color-primary-variant));
+                }
+                
+                :host([is-focus])>div {
+                    box-shadow: 0 0 8px rgba(0, 0, 0, .2);
                 }
 
-                .core label{
+                :host([is-focus]) label {
+                    letter-spacing: 2px;
+                }
+
+                label{
                     position: absolute;
-                    font-size: 14px;
-                    top: 3px;
-                    left: 5px;
+                    z-index: 2;
+                    font-size: 13px;
+                    top: 5px;
+                    left: 8px;
                     color: rgb(var(--color-primary-variant));
+                    text-shadow: -2px -2px 3px rgba(0, 0, 0, .2);
+                    transition: all 300ms ease-in-out;
                 }
 
-                .core input {
+                input {
                     position: absolute;
+                    z-index: 4;
                     display: inline-flex;
-                    bottom: 10px;
+                    bottom: 3px;
                     left: 50%;
-                    width: 90%;
-                    transform: translate(-50%, -50%);
+                    width: 100%;
+                    height: calc(100% - 3px);
+                    padding: 22px 10px 3px 10px;
+                    transform: translate(-50%, 0);
                     border: none;
                     outline: none;
                     font-size: 15px;
+                    background-color: transparent;
                 }
-                
-                .core .alert {
+
+                :host>div::before {
+                    content: "";
                     position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 1;
+                    background-color: rgba(0, 0, 0, .05);
+                    width: 100%;
+                    height: 100%;
+                    pointer-events: none;
+                }
+
+                :host>div::after {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) scale(0);
+                    z-index: 1;
+                    border-radius: 50%;
+                    width: 340px;
+                    height: 340px;
+                    pointer-events: none;
+                    transition: all 300ms ease-in-out;
+                }
+
+                :host([is-focus])>div::after {
+                    transform: translate(-50%, -50%) scale(1);
+                    background-color: rgba(255, 255, 255, .98);
+                }
+            
+                .alert {
+                    position: absolute;
+                    z-index: 2;
                     bottom: 3px;
                     right: 5px;
                     font-size: 11px;
                     color: rgb(var(--color-error));
-                    text-shadow: -2px -2px 3px rgba(0, 0, 0, .1);
+                    text-shadow: -2px -2px 3px rgba(0, 0, 0, .2);
+                }
+
+                :host(:not([is-focus])) .alert {
+                    animation: shake 120ms ease-in-out 3;
                 }
                 
                 .ui {
@@ -74,11 +129,17 @@ class wcTextInput extends wc {
                     display: inline-flex;
                     width: 280px;
                     height: 64px;
-                    box-shadow: 0 0 8px rgba(0, 0, 0, .1);
                     overflow: hidden;
-                    background-color: #fff;
-                    border-bottom: 3px solid rgb(var(--color-primary-variant));
                     border-radius: 5px 5px 0 0;
+                }
+
+                @keyframes shake {
+                    from {
+                        transform: translateX(-5%);
+                    }
+                    to {
+                        transform: translateX(5%);
+                    }
                 }
             </style>
         `;
@@ -146,7 +207,13 @@ class wcTextInput extends wc {
     }
 
     connectedCallback() {
-        this.wcBuiltIn.addEventListener("blur", () => this.validate());
+        this.wcBuiltIn.addEventListener("blur", () => {
+            this.removeAttribute("is-focus");
+            this.validate();
+        });
+        this.wcBuiltIn.addEventListener("focus", () => {
+            this.setAttribute("is-focus", "");
+        });
     }
 }
 

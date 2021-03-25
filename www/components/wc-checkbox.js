@@ -53,7 +53,7 @@ class wcCheckbox extends wc {
                 }
 
                 :host([checked]) label {
-                    background-color: rgba(101, 212, 109, .1);
+                    background-color: rgba(91, 200, 99, .1);
                 }
                 
                 :host>div {
@@ -93,7 +93,7 @@ class wcCheckbox extends wc {
                 }
                 
                 :host([checked]) .ui .icon {
-                    background-color: rgb(101, 212, 109);
+                    background-color: rgb(91, 200, 99);
                 }
                 
                 input:checked ~ .ui .icon svg{

@@ -1,5 +1,9 @@
 import wc from "/components/wc.js";
 
+// The custom-defined reg-exp tag when used directly in an
+// input (custom-tag) inside html, adds to the series of input
+// checkings that are run by a validator (object) field of an
+// input instance.
 class wcRegExp extends wc {
     constructor() {
         super();

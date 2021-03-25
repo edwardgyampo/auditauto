@@ -68,11 +68,17 @@ class wcSelect extends wc {
                 }
 
                 .ui .alert {
+                    display: none;
                     position: absolute;
                     bottom: 2px;
                     right: 5px;
                     font-size: 11px;
                     color: red;
+                }
+
+                :host([is-invalid]) .ui .alert {
+                    display: inline-flex;
+                    animation: shake 120ms ease-in-out 3;
                 }
 
                 .ui .head {
@@ -196,6 +202,15 @@ class wcSelect extends wc {
                     z-index: 0;
                     width: 100vw;
                     height: 100vh;
+                }
+
+                @keyframes shake {
+                    from {
+                        transform: translateX(-5%);
+                    }
+                    to {
+                        transform: translateX(5%);
+                    }
                 }
             </style>
         `;

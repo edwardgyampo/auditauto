@@ -1,5 +1,3 @@
-import CookieAgreement from "/classes/cookieAgreement.js";
-
 class App {
     static get userData() {
         return JSON.parse(localStorage.getItem("userData")) || {};
@@ -48,8 +46,6 @@ class App {
         App.initTextInputsFromData(App.userData.textInputs);
         App.initSelectsFromData(App.userData.selects);
         App.initCheckboxesFromData(App.userData.checkboxes);
-
-        new CookieAgreement();
     }
 
     static async initSelectsFromData(data = {}) {
@@ -99,7 +95,10 @@ class App {
         let invalidForm = validations.some(passed => !passed);
 
         let mainAlert = document.querySelector(".alert.main");
-        mainAlert.classList.toggle("hidden", !invalidForm);
+        mainAlert.classList.remove("is-active");
+        setTimeout(() => {
+            mainAlert.classList.toggle("is-active", invalidForm);
+        });
 
         if (invalidForm) return;
 
@@ -133,7 +132,10 @@ class App {
         let fn = checkbox => checkbox.wcBuiltIn.checked;
         let areSomeSelected = App.checkboxes.some(fn);
         let alert = document.querySelector(".alert.checkbox");
-        alert.classList.toggle("hidden", areSomeSelected);
+        alert.classList.remove("is-active");
+        setTimeout(() => {
+            alert.classList.toggle("is-active", !areSomeSelected);
+        });
         return areSomeSelected;
     }
 

@@ -3,12 +3,12 @@
 :root {
     /* Light Theme */
     --color-primary: 248, 68, 79;
-    --color-primary-variant: 44, 146, 228;
+    --color-primary-variant: 95, 74, 161;
     --color-secondary: 120, 189, 196;
     --color-secondary-variant: 1, 44, 61;
     --color-background: 255, 255, 255;
     --color-surface: 255, 255, 255;
-    --color-error: 176, 0, 32;
+    --color-error: 255, 0, 46;
     --color-on-primary: 247, 248, 243;
     --color-on-secondary: 0, 0, 0;
     --color-on-background: 0, 0, 0;
@@ -43,14 +43,9 @@ body {
     overflow-y: scroll;
 }
 
-wc-text-input, wc-select {
-    margin: 14px;
-}
-
-wc-checkbox {
-    margin: 14px;
-}
-
+wc-text-input,
+wc-select,
+wc-checkbox,
 wc-button {
-    margin: 10px;
+    margin-bottom: 14px;
 }

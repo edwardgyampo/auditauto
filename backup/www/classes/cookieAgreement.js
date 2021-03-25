@@ -1,3 +1,4 @@
+// Prompts user to agree to persisting data.
 class CookieAgreement {
     constructor() {
         this.isAllowedCookies = localStorage.getItem("isAllowedCookies") ?? false;
