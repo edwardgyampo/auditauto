@@ -4,8 +4,6 @@
 
 [Visit Site](https://auditauto.herokuapp.com/)
 
-<br>
-
 Project Structure:
 =======
 **directories** and their contents:
