@@ -29,7 +29,7 @@ class App {
 
     static get sampleDataManufacturers() {
         return App.sampleData.map((obj, i) => {
-            return { id: i + 1, name: obj.name };
+            return { id: i + 1, name: obj.make };
         });
     }
 
@@ -55,8 +55,16 @@ class App {
 
         App.automobileSelect.addEventListener("selectautomobile", (e) => {
             if (isRecoveryChange) {
-                let autoValue = data.automobile && data.automobile.value;
-                App.automobileSelect.value = autoValue || "";
+                try {
+                    App.automobileSelect.value = data.automobile && data.automobile.value || "";
+                    if (!App.automobileSelect.value) {
+                        throw new Error("Failed to recover recent automobile selection.");
+                    }
+                }
+                catch (e) {
+                    console.log(e);
+                }
+
                 isRecoveryChange = false;
             }
         });
@@ -74,7 +82,16 @@ class App {
             await App.updateAutomobileSelect();
         });
 
-        App.manufacturerSelect.value = data.manufacturer && data.manufacturer.value || "";
+        try {
+            App.manufacturerSelect.value = data.manufacturer && data.manufacturer.value || "";
+            if (!App.manufacturerSelect.value) {
+                throw new Error("Failed to recover recent manufacturer selection.");
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+        
         App.manufacturerSelect.dispatchEvent(new CustomEvent("selectmanufacturer", {
             detail: {
                 value: App.manufacturerSelect.value
@@ -146,14 +163,14 @@ class App {
         });
         return bool;
     }
-
+    
     // Returns all models for manufacturer while maintaining
     // unique ids even though arrays are used.
     // NB: Allows persisting data for reuse upon site revisit.
     // Eg. User should be able to see last-selected model, before they
     // decide to make changes.
     // So where there is a total of 50 models, ids should start from 1 to
-    // 50 in-spite-of re-indexing (0 to 5) applied to 'models' arrays in App.sampleData
+    // 50 in-spite-of re-indexing (1 to 5) applied to 'models' arrays in App.sampleData
     static getModelByManufacturerId(id) {
         let modelCount = 0;
 
@@ -166,16 +183,6 @@ class App {
         return data.models.map((model) => {
             return { id: ++modelCount, name: model };
         });
-    }
-
-    static async getModelByManufacturerIdDb(id) {
-        return await postData("/automobiles/read/for-manufacturer", {
-            manufacturerId: id
-        });
-    }
-
-    static async getManufacturersDb() {
-        return await postData("/manufacturers/read");
     }
 
     static async updateAutomobileSelect() {
@@ -193,7 +200,7 @@ class App {
     static get sampleData() {
         return [
             {
-                name: 'Volkswagen',
+                make: 'Volkswagen',
                 models: [
                     'Atlas',
                     'Tiguan',
@@ -203,7 +210,7 @@ class App {
                 ]
             },
             {
-                name: 'Nissan',
+                make: 'Nissan',
                 models: [
                     'Versa',
                     'Sentra',
@@ -213,7 +220,7 @@ class App {
                 ]
             },
             {
-                name: 'BMW',
+                make: 'BMW',
                 models: [
                     '2 Series coupé',
                     '3 Series Sedan',
@@ -223,7 +230,7 @@ class App {
                 ]
             },
             {
-                name: 'Tesla Inc.',
+                make: 'Tesla Inc.',
                 models: [
                     'Model S',
                     'Model Y',
@@ -233,7 +240,7 @@ class App {
                 ]
             },
             {
-                name: 'Ford',
+                make: 'Ford',
                 models: [
                     'Fusion',
                     'Mustang',
@@ -243,7 +250,7 @@ class App {
                 ]
             },
             {
-                name: 'Toyota',
+                make: 'Toyota',
                 models: [
                     'Avalon',
                     'Camry',
@@ -253,7 +260,7 @@ class App {
                 ]
             },
             {
-                name: 'Mercedes-Benz',
+                make: 'Mercedes-Benz',
                 models: [
                     'GLA SUV',
                     'GLB SUV',
@@ -263,7 +270,7 @@ class App {
                 ]
             },
             {
-                name: 'Honda',
+                make: 'Honda',
                 models: [
                     'Atlas',
                     'Tiguan',
@@ -273,7 +280,7 @@ class App {
                 ]
             },
             {
-                name: 'Audi',
+                make: 'Audi',
                 models: [
                     'RS 7',
                     'TTS',
@@ -283,7 +290,7 @@ class App {
                 ]
             },
             {
-                name: 'Kia',
+                make: 'Kia',
                 models: [
                     'Soul',
                     'Sportage',
