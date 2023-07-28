@@ -1,7 +1,5 @@
-﻿# **AuditAuto**
+﻿# **[AuditAuto](https://wandering-gold-harp-seal.cyclic.app/)**
 A web application that is used by an audit company to evaluate the usage and preference of Automobile Manufacturer customers
-
-[Visit Website](https://auditauto.herokuapp.com/)
 
 Project Structure:
 =======
